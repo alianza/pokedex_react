@@ -1,11 +1,10 @@
 const baseUrl = "https://pokeapi.co/api/v2";
 
 const PokéService = {
-
     doLoad(url) { // Base method for doing http Get requests
         return fetch(baseUrl + url)
             .then(response => response.json())
-            .then(data => {return data;});
+            .then(data => { return data; });
     },
     loadPokemons() {
         return this.doLoad('/pokemon').then(jsonData => {
