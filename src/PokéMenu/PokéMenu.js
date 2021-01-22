@@ -1,4 +1,4 @@
-import './PokéMenu.css'
+import './PokéMenu.scss'
 import React from "react";
 
 function PokéMenu(props) {

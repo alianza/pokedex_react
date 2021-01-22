@@ -1,4 +1,4 @@
-import './App.css';
+import './App.scss';
 import React from "react";
 import PokéHeader from "./PokéHeader/PokéHeader";
 import PokéMenu from "./PokéMenu/PokéMenu";
@@ -23,6 +23,9 @@ class App extends React.Component {
             </div>
         );
     }
+    componentDidMount() {
+        this.loadPokemons();
+    }
     toggleMenu(e) {
         console.log("Menu Clicked!");
         console.log(e);
@@ -46,7 +49,7 @@ class App extends React.Component {
             'Made by Jan-Willem van Bremen - 2020')
     }
     loadPokemons() {
-        console.log(PokéService.loadPokemons())
+        PokéService.loadPokemons().then(json => {console.log(json)})
     }
 }
 

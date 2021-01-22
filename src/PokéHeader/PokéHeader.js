@@ -1,4 +1,4 @@
-import './PokéHeader.css'
+import './PokéHeader.scss'
 import React from "react";
 
 function PokéHeader(props) {
