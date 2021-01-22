@@ -1,25 +1,53 @@
-import logo from './logo.svg';
 import './App.css';
+import React from "react";
+import PokéHeader from "./PokéHeader/PokéHeader";
+import PokéMenu from "./PokéMenu/PokéMenu";
+import PokéService from "./PokéService/PokéService";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            title: 'PokéDex',
+            jsonData: [],
+
+        }
+    }
+    render() {
+        return (
+            <div id="app" className="menu-active">
+                <PokéHeader onMenuClick={e => this.toggleMenu(e)} title={this.state.title}/>
+                <PokéMenu onMenuClick={e => this.toggleMenu(e)} onMenuItemClick={e => this.onMenuItemClick(e)}/>
+
+
+            </div>
+        );
+    }
+    toggleMenu(e) {
+        console.log("Menu Clicked!");
+        console.log(e);
+        document.getElementById("app").classList.toggle("menu-active");
+    }
+    onMenuItemClick(e) {
+        switch (e.target.dataset.item) {
+            case 'home': { this.setState({jsonData: []}); this.loadPokemons(); this.setActiveMenuItem(e); break }
+            case 'types': { this.loadTypes(); this.setActiveMenuItem(e); break }
+            case 'random': { this.loadRandomPokemon(); break }
+            case 'about': { this.about(); break }
+            default : {return}}
+    }
+    setActiveMenuItem(e) {
+        document.getElementsByClassName('active').item(0).classList.remove('active');
+        e.target.classList.add('active');
+    }
+    about() {
+        alert('This is a Web PokéDex Application!\n' +
+            'Discover countless Pokemon and their info!\n' +
+            'Made by Jan-Willem van Bremen - 2020')
+    }
+    loadPokemons() {
+        console.log(PokéService.loadPokemons())
+    }
 }
 
 export default App;
