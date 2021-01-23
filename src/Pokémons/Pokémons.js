@@ -7,7 +7,7 @@ class Pokémons extends Component {
             <div className="pokemons">
                 <div className="pokemons-header">
                     <h1>Pick a creature!</h1>
-                    <div className="button button-sort">Sort ⇕</div>
+                    <div onClick={this.sort} className="button button-sort">Sort ⇕</div>
                 </div>
                 <ul className="pokemons-list">
                     <li className="pokemons-item">
@@ -24,6 +24,10 @@ class Pokémons extends Component {
     componentDidMount() {
         console.log(this.props.match);
         console.log(this.props.jsonData);
+    }
+
+    sort() {
+
     }
 }
 

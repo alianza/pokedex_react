@@ -12,7 +12,7 @@ class App extends React.Component {
         super(props);
         this.state = {
             title: 'PokéDex',
-            jsonData: '',
+            jsonData: JSON,
         }
     }
 
@@ -23,12 +23,17 @@ class App extends React.Component {
                     <PokéHeader onMenuClick={e => this.toggleMenu(e)} title={this.state.title}/>
                     <PokéMenu onMenuClick={e => this.toggleMenu(e)} onMenuItemClick={e => this.onMenuItemClick(e)}/>
                     <div className={'content'}>
+
                             <Route exact={true} path={'/'} render={({match}) => (
                                 <Pokémons match={match} jsonData={this.state.jsonData}/>
                             )}/>
+
                             <Route exact={true} path={'/types'} render={({match}) => (
                                 <Types match={match}/>
                             )}/>
+
+                        {this.state.jsonData.previous && <button className="button button-prev" onClick={e => this.loadPreviousPage(e)}>Previous page</button>}
+                        {this.state.jsonData.next && <button className="button button-next" onClick={e => this.loadNextPage(e)}>Next page</button>}
                     </div>
                 </div>
             </Router>
@@ -37,6 +42,7 @@ class App extends React.Component {
 
     componentDidMount() {
         this.loadPokemons();
+        window.addEventListener("resize", ev => {this.onResize(ev)})
     }
 
     toggleMenu(e) {
@@ -53,9 +59,18 @@ class App extends React.Component {
             case 'about': { this.about(); break }
             default : {return}}
     }
+
     setActiveMenuItem(e) {
         document.getElementsByClassName('active').item(0).classList.remove('active');
         e.target.classList.add('active');
+    }
+
+    onResize(ev) {
+        if (ev.target.innerWidth < 600) {
+            document.getElementById('app').classList.remove('menu-active')
+        } else if (ev.target.innerWidth > 900) {
+            document.getElementById('app').classList.add('menu-active')
+        }
     }
 
     about() {
@@ -70,6 +85,15 @@ class App extends React.Component {
 
     loadTypes() {
         PokéService.loadTypes().then(json => {this.setState({jsonData: json});});
+    }
+
+    loadNextPage() {
+        console.log(this.state.jsonData.next)
+        PokéService.doLoad(this.state.jsonData.next).then(json => {this.setState({jsonData: json});});
+    }
+
+    loadPreviousPage() {
+        PokéService.doLoad(this.state.jsonData.previous).then(json => {this.setState({jsonData: json});});
     }
 }
 
