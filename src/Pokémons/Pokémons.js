@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './Pokémons.scss'
 
-class PokéMons extends Component {
+class Pokémons extends Component {
     render() {
         return (
             <div className="pokemons">
@@ -11,16 +11,20 @@ class PokéMons extends Component {
                 </div>
                 <ul className="pokemons-list">
                     <li className="pokemons-item">
-                        awdawd
+                        {this.props.jsonData.results ?
+                            this.props.jsonData.results.map((e, i) => {
+                                return <span className="busterCards" key={i}>♦ {e.name}</span>})
+                            : "Loading..." }
                 </li>
             </ul>
-        <h2>No results :(</h2>
+                {!this.props.jsonData.results && <h2>No results :(</h2>}
     </div>
         );
     }
     componentDidMount() {
         console.log(this.props.match);
+        console.log(this.props.jsonData);
     }
 }
 
-export default PokéMons;
+export default Pokémons;

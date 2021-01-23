@@ -4,7 +4,7 @@ import PokéHeader from "./PokéHeader/PokéHeader";
 import PokéMenu from "./PokéMenu/PokéMenu";
 import PokéService from "./PokéService/PokéService";
 import {BrowserRouter as Router, Route} from "react-router-dom";
-import PokéMons from "./Pokémons/Pokémons";
+import Pokémons from "./Pokémons/Pokémons";
 import Types from "./Types/Types";
 
 class App extends React.Component {
@@ -12,7 +12,7 @@ class App extends React.Component {
         super(props);
         this.state = {
             title: 'PokéDex',
-            jsonData: [],
+            jsonData: '',
         }
     }
 
@@ -24,7 +24,7 @@ class App extends React.Component {
                     <PokéMenu onMenuClick={e => this.toggleMenu(e)} onMenuItemClick={e => this.onMenuItemClick(e)}/>
                     <div className={'content'}>
                             <Route exact={true} path={'/'} render={({match}) => (
-                                <PokéMons match={match}/>
+                                <Pokémons match={match} jsonData={this.state.jsonData}/>
                             )}/>
                             <Route exact={true} path={'/types'} render={({match}) => (
                                 <Types match={match}/>
@@ -65,11 +65,11 @@ class App extends React.Component {
     }
 
     loadPokemons() {
-        PokéService.loadPokemons().then(json => {console.log(json)});
+        PokéService.loadPokemons().then(json => {this.setState({jsonData: json});});
     }
 
     loadTypes() {
-        PokéService.loadTypes().then(json => console.log(json));
+        PokéService.loadTypes().then(json => {this.setState({jsonData: json});});
     }
 }
 
