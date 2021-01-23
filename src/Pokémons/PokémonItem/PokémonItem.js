@@ -1,9 +1,9 @@
 import './PokémonItem.scss'
-import PokémonService from "../PokémonService/PokémonService";
-import capitalize from "../helpers/Capitalize";
-import React, {Component} from 'react';
-import {Pokémon} from "../entity/Pokémon";
-import TypeToColor from "../helpers/TypeToColor";
+import {Component} from "react";
+import {Pokémon} from "../../entity/Pokémon";
+import capitalize from "../../helpers/Capitalize";
+import TypeToColor from "../../helpers/TypeToColor";
+import PokémonService from "../../PokémonService/PokémonService";
 
 class PokémonItem extends Component {
     constructor(props) {

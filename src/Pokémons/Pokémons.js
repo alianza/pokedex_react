@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './Pokémons.scss'
-import PokémonItem from "../PokémonItem/PokémonItem";
+import PokémonItem from "./PokémonItem/PokémonItem";
 
 class Pokémons extends Component {
     render() {
