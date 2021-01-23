@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import './Pokémons.scss'
+import PokémonItem from "../PokémonItem/PokémonItem";
 
 class Pokémons extends Component {
     render() {
@@ -10,12 +11,12 @@ class Pokémons extends Component {
                     <div onClick={this.sort} className="button button-sort">Sort ⇕</div>
                 </div>
                 <ul className="pokemons-list">
-                    <li className="pokemons-item">
                         {this.props.jsonData.results ?
                             this.props.jsonData.results.map((e, i) => {
-                                return <span className="busterCards" key={i}>♦ {e.name}</span>})
+                                return <li className="pokemons-item" key={i}>
+                                          <PokémonItem pokémonRef={e}/>
+                                       </li>})
                             : "Loading..." }
-                </li>
             </ul>
                 {!this.props.jsonData.results && <h2>No results :(</h2>}
     </div>

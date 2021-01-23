@@ -2,10 +2,12 @@ import './App.scss';
 import React from "react";
 import PokéHeader from "./PokéHeader/PokéHeader";
 import PokéMenu from "./PokéMenu/PokéMenu";
-import PokéService from "./PokéService/PokéService";
+import PokéFooter from "./PokéFooter/PokéFooter";
+import PokMonService from "./PokémonService/PokémonService";
 import {BrowserRouter as Router, Route} from "react-router-dom";
 import Pokémons from "./Pokémons/Pokémons";
 import Types from "./Types/Types";
+import {Pokémon} from "./entity/Pokémon";
 
 class App extends React.Component {
     constructor(props) {
@@ -13,6 +15,7 @@ class App extends React.Component {
         this.state = {
             title: 'PokéDex',
             jsonData: JSON,
+            detailPokémon: Pokémon,
         }
     }
 
@@ -20,21 +23,31 @@ class App extends React.Component {
         return (
             <Router>
                 <div id="app" className="menu-active">
-                    <PokéHeader onMenuClick={e => this.toggleMenu(e)} title={this.state.title}/>
+                    <PokéHeader onMenuClick={this.toggleMenu} title={this.state.title}/>
                     <PokéMenu onMenuClick={e => this.toggleMenu(e)} onMenuItemClick={e => this.onMenuItemClick(e)}/>
+
                     <div className={'content'}>
 
-                            <Route exact={true} path={'/'} render={({match}) => (
-                                <Pokémons match={match} jsonData={this.state.jsonData}/>
-                            )}/>
+                        <Route exact={true} path={'/'} render={({match}) => (
+                            <Pokémons match={match} jsonData={this.state.jsonData}/>)}/>
 
-                            <Route exact={true} path={'/types'} render={({match}) => (
-                                <Types match={match}/>
-                            )}/>
+                        <Route exact={true} path={'/types'} render={({match}) => (
+                            <Types match={match}/>)}/>
 
-                        {this.state.jsonData.previous && <button className="button button-prev" onClick={e => this.loadPreviousPage(e)}>Previous page</button>}
-                        {this.state.jsonData.next && <button className="button button-next" onClick={e => this.loadNextPage(e)}>Next page</button>}
+                        {this.state.jsonData.previous &&
+                        <button className="button button-prev" onClick={e => this.loadPreviousPage(e)}>Previous page</button>}
+
+                        {this.state.jsonData.next &&
+                        <button className="button button-next" onClick={e => this.loadNextPage(e)}>Next page</button>}
                     </div>
+
+                    <div id="loader">
+                        <div/>
+                    </div>
+
+                    <pokemon-detail detailClose="closeDetails" onDetailTypeClick="onDetailTypeClick" pokemon={this.state.detailPokémon}/>
+
+                    <PokéFooter/>
                 </div>
             </Router>
         );
@@ -45,9 +58,7 @@ class App extends React.Component {
         window.addEventListener("resize", ev => {this.onResize(ev)})
     }
 
-    toggleMenu(e) {
-        console.log("Menu Clicked!");
-        console.log(e);
+    toggleMenu() {
         document.getElementById("app").classList.toggle("menu-active");
     }
 
@@ -80,20 +91,21 @@ class App extends React.Component {
     }
 
     loadPokemons() {
-        PokéService.loadPokemons().then(json => {this.setState({jsonData: json});});
+        PokMonService.loadPokemons().then(json => {this.setState({jsonData: json});});
     }
 
     loadTypes() {
-        PokéService.loadTypes().then(json => {this.setState({jsonData: json});});
+        PokMonService.loadTypes().then(json => {this.setState({jsonData: json});});
     }
 
     loadNextPage() {
-        console.log(this.state.jsonData.next)
-        PokéService.doLoad(this.state.jsonData.next).then(json => {this.setState({jsonData: json});});
+        this.setState({jsonData: JSON})
+        PokMonService.doLoad(this.state.jsonData.next).then(json => {this.setState({jsonData: json});});
     }
 
     loadPreviousPage() {
-        PokéService.doLoad(this.state.jsonData.previous).then(json => {this.setState({jsonData: json});});
+        this.setState({jsonData: JSON})
+        PokMonService.doLoad(this.state.jsonData.previous).then(json => {this.setState({jsonData: json});});
     }
 }
 

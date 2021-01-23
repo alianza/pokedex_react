@@ -1,6 +1,6 @@
 const baseUrl = "https://pokeapi.co/api/v2";
 
-const PokéService = {
+const PokMonService = {
     doLoad(url) { // Base method for doing http Get requests
 
         if (!url.includes(baseUrl)) {
@@ -33,4 +33,4 @@ const PokéService = {
     }
 }
 
-export default PokéService
+export default PokMonService
