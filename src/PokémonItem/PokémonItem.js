@@ -15,7 +15,7 @@ class PokémonItem extends Component {
 
     render() {
         return (
-            <div className="pokemon"
+            <div className="pokemon" onClick={e => this.props.onPokemonClick(this.state.pokémon, e)}
                  style={this.state.pokémon.sprites.front_default ?
                      {backgroundImage: 'url(' + this.state.pokémon.sprites.front_default + ')'} :
                      {backgroundImage: 'url(./placeholder.png)',

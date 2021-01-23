@@ -24,12 +24,12 @@ class App extends React.Component {
             <Router>
                 <div id="app" className="menu-active">
                     <PokéHeader onMenuClick={this.toggleMenu} title={this.state.title}/>
-                    <PokéMenu onMenuClick={e => this.toggleMenu(e)} onMenuItemClick={e => this.onMenuItemClick(e)}/>
+                    <PokéMenu onMenuClick={this.toggleMenu} onMenuItemClick={e => this.onMenuItemClick(e)}/>
 
                     <div className={'content'}>
 
                         <Route exact={true} path={'/'} render={({match}) => (
-                            <Pokémons match={match} jsonData={this.state.jsonData}/>)}/>
+                            <Pokémons onPokémonClick={this.togglePokémonDetails} jsonData={this.state.jsonData} match={match} />)}/>
 
                         <Route exact={true} path={'/types'} render={({match}) => (
                             <Types match={match}/>)}/>
@@ -53,12 +53,12 @@ class App extends React.Component {
         );
     }
 
-    componentDidMount() {
+    componentDidMount = () => {
         this.loadPokemons();
         window.addEventListener("resize", ev => {this.onResize(ev)})
     }
 
-    toggleMenu() {
+    toggleMenu = () => {
         document.getElementById("app").classList.toggle("menu-active");
     }
 
@@ -84,28 +84,32 @@ class App extends React.Component {
         }
     }
 
-    about() {
+    about = () => {
         alert('This is a Web PokéDex Application!\n' +
             'Discover countless Pokemon and their info!\n' +
             'Made by Jan-Willem van Bremen - 2020')
     }
 
-    loadPokemons() {
+    loadPokemons = () => {
         PokMonService.loadPokemons().then(json => {this.setState({jsonData: json});});
     }
 
-    loadTypes() {
+    loadTypes = () => {
         PokMonService.loadTypes().then(json => {this.setState({jsonData: json});});
     }
 
-    loadNextPage() {
+    loadNextPage = () => {
         this.setState({jsonData: JSON})
         PokMonService.doLoad(this.state.jsonData.next).then(json => {this.setState({jsonData: json});});
     }
 
-    loadPreviousPage() {
+    loadPreviousPage = () => {
         this.setState({jsonData: JSON})
         PokMonService.doLoad(this.state.jsonData.previous).then(json => {this.setState({jsonData: json});});
+    }
+
+    togglePokémonDetails = (e, pokémon) => {
+        console.log(e, pokémon);
     }
 }
 

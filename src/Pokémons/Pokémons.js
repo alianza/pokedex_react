@@ -14,7 +14,7 @@ class Pokémons extends Component {
                         {this.props.jsonData.results ?
                             this.props.jsonData.results.map((e, i) => {
                                 return <li className="pokemons-item" key={i}>
-                                          <PokémonItem pokémonRef={e}/>
+                                          <PokémonItem onPokemonClick={this.onPokémonClick} pokémonRef={e}/>
                                        </li>})
                             : "Loading..." }
             </ul>
@@ -22,12 +22,16 @@ class Pokémons extends Component {
     </div>
         );
     }
-    componentDidMount() {
+    componentDidMount = () => {
         console.log(this.props.match);
         console.log(this.props.jsonData);
     }
 
-    sort() {
+    onPokémonClick = (e, pokémon) => {
+        this.props.onPokémonClick(e, pokémon)
+    }
+
+    sort = () => {
 
     }
 }
