@@ -52,17 +52,18 @@ class App extends React.Component {
     }
 
     componentDidMount = () => {
-        window.addEventListener("resize", ev => {this.onResize(ev)})
+        window.addEventListener("resize", this.onResize)
+        this.onResize()
     }
 
     toggleMenu = () => {
         document.getElementById("app").classList.toggle("menu-active");
     }
 
-    onResize(ev) {
-        if (ev.target.innerWidth < 600) {
+    onResize = () => {
+        if (window.innerWidth < 600) {
             document.getElementById('app').classList.remove('menu-active')
-        } else if (ev.target.innerWidth > 900) {
+        } else if (window.innerWidth > 900) {
             document.getElementById('app').classList.add('menu-active')
         }
     }
