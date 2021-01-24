@@ -29,7 +29,7 @@ class App extends React.Component {
 
                     <div className={'content'}>
                         <Switch>
-                        <Route exact path={['/', '/pokémon/:pokemonName', '/random', '/type/:type']}  render={({match}) => (
+                        <Route exact path={['/', '/pokémon/:pokemonName', '/random', '/type/:type', '/page/:page']}  render={({match}) => (
                             <Pokémons jsonData={this.state.jsonData} match={match}/>)}/>
 
                         <Route path={'/types'} render={({match}) => (
@@ -43,13 +43,12 @@ class App extends React.Component {
                         <div/>
                     </div>
 
-                    <AnimatedRoute exact path={['/random','/pokémon/:pokemonName']}
-                                   atEnter={{ opacity: 0 }} atLeave={{ opacity: 1 }} atActive={{ opacity: 1 }}
-                                   mapStyles={(styles) => ({
-                                       opacity: styles.opacity,
-                                   })} render={({match}) => (
-                        <PokémonDetails match={match}/>)}/>
                     <PokéFooter/>
+
+                    <AnimatedRoute exact path={['/random','/pokémon/:pokemonName']}
+                                   atEnter={{ opacity: 0 }} atLeave={{ opacity: 0 }} atActive={{ opacity: 1 }}
+                                   mapStyles={(styles) => ({ opacity: styles.opacity, })} render={({match}) => (
+                        <PokémonDetails match={match}/>)}/>
                 </div>
             </Router>
         );
