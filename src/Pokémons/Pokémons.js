@@ -4,6 +4,8 @@ import PokémonItem from "./PokémonItem/PokémonItem";
 import {Link} from "react-router-dom";
 import PokémonService from "../PokémonService/PokémonService";
 import capitalize from "../helpers/Capitalize";
+import scrollToTop from "../helpers/ScrollToTop";
+import Loader from "../helpers/Loader";
 
 class Pokémons extends Component {
     constructor(props) {
@@ -13,6 +15,7 @@ class Pokémons extends Component {
                 results: {}
             },
             title: "Pick a creature!",
+            page: 1,
         }
     }
 
@@ -33,16 +36,16 @@ class Pokémons extends Component {
                 {!this.state.jsonData.results.length && <h2>No results :(</h2>}
 
                 {this.state && this.state.jsonData.previous &&
-                <button className="button button-prev" onClick={e => this.loadPreviousPage(e)}>Previous page</button>}
+                <Link to={`/page/${this.state.page - 1}`} className="button button-prev" onClick={() => this.loadPreviousPage()}>Previous page</Link>}
 
                 {this.state && this.state.jsonData.next &&
-                <button className="button button-next" onClick={e => this.loadNextPage(e)}>Next page</button>}
+                <Link to={`/page/${this.state.page + 1}`} className="button button-next" onClick={() => this.loadNextPage()}>Next page</Link>}
             </div>
         );
     }
 
     componentDidMount() {
-        this.initData()
+        this.initData();
     }
 
     componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS) {
@@ -56,52 +59,77 @@ class Pokémons extends Component {
             if (this.props.match.path === "/" && !prevProps.match.path.includes('/type')) {
                 return; // Don't update data already on homepage except when coming from type
             }
+            if (this.props.match.path === "/page/:page") {
+                return; // Don't update data when random pokémon is detailed
+            }
             this.initData()
         }
     }
 
     initData = () => {
-        if (this.props.match.params.type) {
-            this.setState({title: `${capitalize(this.props.match.params.type)} type Pokémon!`})
-            this.loadTypePokémons(this.props.match.params.type)
-        } else {
-            this.setState({title: "Pick a creature!"})
-            this.loadPokémons()
+        if (this.props.match.params.type) { // Type to load is set, load pokémons from that type
+            this.setState({title: `${capitalize(this.props.match.params.type)} type Pokémon!`});
+            this.loadTypePokémons(this.props.match.params.type);
+        } else if (this.props.match.params.page) { // Page to load is set, load page pokémons from that page
+            this.setState({ page: parseInt(this.props.match.params.page) })
+            let offset = this.props.match.params.page * PokémonService.basePageLimit
+            this.loadPagedPokémon(offset)
+        } else { // Default case, load normal pokémon list
+            this.setState({title: "Pick a creature!"});
+            this.loadPokémons();
         }
     }
 
     loadPokémons = () => {
-        PokémonService.getPokemons().then(json => {
+        Loader.showLoader();
+        PokémonService.getPokémons().then(json => {
             this.setState({jsonData: json});
+            Loader.hideLoader();
         });
     }
 
+    loadPagedPokémon = (offset) => {
+        Loader.showLoader();
+        PokémonService.getPagedPokémons(offset).then(json => {
+            this.setState({jsonData: json});
+            Loader.hideLoader();
+        })
+    }
+
     loadTypePokémons = (type) => {
+        Loader.showLoader();
         PokémonService.getTypePokémons(type).then(json => {
             if (json) {
                 Object.defineProperty(json, 'results', Object.getOwnPropertyDescriptor(json, 'pokemon'));
                 delete json['pokemon']; // Change name of pokemons prop to results
                 json.results.forEach(function (result, index) {
-                    json.results[index] = result.pokemon // Lift all pokemons results one level up in hierarchy
+                    json.results[index] = result.pokemon; // Lift all pokemons results one level up in hierarchy
                 })
                 this.setState({jsonData: json});
+                Loader.hideLoader();
             }
         });
     }
 
     loadNextPage = () => {
+        Loader.showLoader();
         this.setState({})
+        this.setState({ page: this.state.page + 1 })
         PokémonService.doLoad(this.state.jsonData.next).then(json => {
             this.setState({jsonData: json});
-            this.scrollToTop();
+            Loader.hideLoader();
+            scrollToTop();
         });
     }
 
     loadPreviousPage = () => {
+        Loader.showLoader();
         this.setState({})
+        this.setState({ page: this.state.page - 1 })
         PokémonService.doLoad(this.state.jsonData.previous).then(json => {
             this.setState({jsonData: json});
-            this.scrollToTop();
+            Loader.hideLoader();
+            scrollToTop();
         });
     }
 
@@ -113,14 +141,6 @@ class Pokémons extends Component {
         children.forEach(function (result) {
             list.innerHTML += result.outerHTML;
         })
-    }
-
-    scrollToTop = () => {
-        const position = document.body.scrollTop || document.documentElement.scrollTop;
-        if (position) {
-            window.scrollBy(0, -Math.max(10, Math.floor(position / 10)));
-            requestAnimationFrame(this.scrollToTop);
-        }
     }
 }
 
