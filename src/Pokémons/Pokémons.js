@@ -51,16 +51,16 @@ class Pokémons extends Component {
     componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS) {
         if (this.props.match.params !== prevProps.match.params) {
             if (this.props.match.params.pokemonName && !prevProps.match.params.pokemonName) {
-                return; // Don't update data if pokémon is detailed
+                return; // Don't initiate data if pokémon is detailed
             }
             if (this.props.match.path === "/random") {
-                return; // Don't update data when random pokémon is detailed
+                return; // Don't initiate data when random pokémon is detailed
             }
-            if (this.props.match.path === "/" && !prevProps.match.path.includes('/type')) {
-                return; // Don't update data already on homepage except when coming from type
+            if (this.props.match.path === "/" && (!prevProps.match.path.includes('/type') && !prevProps.match.path.includes('/page'))) {
+                return; // Don't initiate data already on homepage except when coming from /type or /page
             }
             if (this.props.match.path === "/page/:page") {
-                return; // Don't update data when random pokémon is detailed
+                return; // Don't initiate data when random pokémon is detailed
             }
             this.initData()
         }
