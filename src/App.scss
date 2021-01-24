@@ -83,6 +83,14 @@ a {
             box-shadow: 0 0 12px rgba(0, 0, 0, .5);
         }
 
+        &-catch {
+            position: fixed;
+            z-index: 5;
+            bottom: .8em;
+            left: .8em;
+            box-shadow: 0 0 12px rgba(0, 0, 0, .5);
+        }
+
         &-next {
             float: right;
         }

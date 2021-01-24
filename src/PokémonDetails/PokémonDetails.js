@@ -7,6 +7,7 @@ import typeToColor from "../helpers/TypeToColor";
 import {Pokémon} from "../entity/Pokémon";
 import Loader from "../helpers/Loader";
 import scrollToTop from "../helpers/ScrollToTop";
+import Catch from "../helpers/Catch";
 
 class PokémonDetails extends Component {
     constructor(props) {
@@ -79,6 +80,7 @@ class PokémonDetails extends Component {
                     </div>
                     {this.props.match.path === "/random" &&
                     <div className="button button-random" onClick={this.loadRandomPokémon}>Next →</div>}
+                    <div className="button button-catch" onClick={this.catchPokémon}>💾</div>
                 </React.Fragment>
                 }
             </React.Fragment>
@@ -109,6 +111,14 @@ class PokémonDetails extends Component {
             this.setState({pokémon: json});
             Loader.hideLoader();
         });
+    }
+
+    catchPokémon = () => {
+        Catch.add(this.state.pokémon);
+        console.log(Catch.getAll());
+        console.log(Catch.get(this.state.pokémon.name));
+        Catch.remove(this.state.pokémon.name);
+        console.log(Catch.getAll()); // Successful add and remove to pokémons array in LocalStorage
     }
 
     toggleImage = () => {
