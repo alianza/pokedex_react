@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import './Types.scss'
+import PokémonService from "../PokémonService/PokémonService";
+import TypeItem from "./TypeItem/TypeItem";
 
 class Types extends Component {
     render() {
@@ -10,16 +12,31 @@ class Types extends Component {
                     <div className="button button-sort">Sort ⇕</div>
                 </div>
                 <ul className="types-list">
-                    <li className="types-item">
-                        awdawd
-                        {/*<type-item @clickedType="clickedType" :type="type"></type-item>*/}
-                </li>
-            </ul>
-    </div>
+                    {this.state &&
+                    this.state.jsonData.results.map((type) => {
+                        return <li className="types-item">
+                            <TypeItem key={type.name} type={type}>{type.name}</TypeItem>
+                        </li>
+                    })}
+                </ul>
+            </div>
         );
     }
+
     componentDidMount() {
-        console.log(this.props.match);
+        this.loadTypes()
+    }
+
+    loadTypes = () => {
+        PokémonService.loadTypes().then(json => {this.setState({jsonData: json});});
+    }
+
+    onTypeClick = (e, type) => {
+        this.props.onTypeClick(e, type)
+    }
+
+    sort = () => {
+
     }
 }
 
