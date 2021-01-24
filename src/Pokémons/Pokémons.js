@@ -93,6 +93,7 @@ class Pokémons extends Component {
         this.setState({})
         PokémonService.doLoad(this.state.jsonData.next).then(json => {
             this.setState({jsonData: json});
+            this.scrollToTop();
         });
     }
 
@@ -100,6 +101,7 @@ class Pokémons extends Component {
         this.setState({})
         PokémonService.doLoad(this.state.jsonData.previous).then(json => {
             this.setState({jsonData: json});
+            this.scrollToTop();
         });
     }
 
@@ -111,6 +113,14 @@ class Pokémons extends Component {
         children.forEach(function (result) {
             list.innerHTML += result.outerHTML;
         })
+    }
+
+    scrollToTop = () => {
+        const position = document.body.scrollTop || document.documentElement.scrollTop;
+        if (position) {
+            window.scrollBy(0, -Math.max(10, Math.floor(position / 10)));
+            requestAnimationFrame(this.scrollToTop);
+        }
     }
 }
 
