@@ -8,12 +8,15 @@ import {Pokémon} from "../entity/Pokémon";
 import Loader from "../helpers/Loader";
 import scrollToTop from "../helpers/ScrollToTop";
 import Catch from "../helpers/Catch";
+import pokéball_closed from "../img/pokéball_closed.png"
+import pokéball_open from "../img/pokéball_open.png"
 
 class PokémonDetails extends Component {
     constructor(props) {
         super(props);
         this.state = {
             pokémon: new Pokémon(),
+            caught: false,
         }
     }
 
@@ -80,7 +83,11 @@ class PokémonDetails extends Component {
                     </div>
                     {this.props.match.path === "/random" &&
                     <div className="button button-random" onClick={this.loadRandomPokémon}>Next →</div>}
-                    <div className="button button-catch" onClick={this.catchPokémon}>💾</div>
+                    {this.state.caught ?
+                        <div className="button button-catch tooltip" data-tip={`Catch ${capitalize(this.state.pokémon.name)}!`}
+                             onClick={this.catchPokémon} style={{backgroundImage: `url(${pokéball_open})`}}/> :
+                        <div className="button button-catch tooltip" data-tip={`Let ${capitalize(this.state.pokémon.name)} go!`}
+                             onClick={this.catchPokémon} style={{backgroundImage: `url(${pokéball_closed})`}}/>}
                 </React.Fragment>
                 }
             </React.Fragment>
@@ -114,11 +121,14 @@ class PokémonDetails extends Component {
     }
 
     catchPokémon = () => {
-        Catch.add(this.state.pokémon);
+        if (this.state.caught) {
+            Catch.remove(this.state.pokémon.name);
+            this.setState({caught: false})
+        } else {
+            Catch.add(this.state.pokémon);
+            this.setState({caught: true})
+        }
         console.log(Catch.getAll());
-        console.log(Catch.get(this.state.pokémon.name));
-        Catch.remove(this.state.pokémon.name);
-        console.log(Catch.getAll()); // Successful add and remove to pokémons array in LocalStorage
     }
 
     toggleImage = () => {
