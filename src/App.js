@@ -8,6 +8,7 @@ import {BrowserRouter as Router, Route} from "react-router-dom";
 import Pokémons from "./Pokémons/Pokémons";
 import Types from "./Types/Types";
 import {Pokémon} from "./entity/Pokémon";
+import { AnimatedRoute } from 'react-router-transition';
 
 class App extends React.Component {
     constructor(props) {
@@ -27,7 +28,7 @@ class App extends React.Component {
                     <PokéMenu onMenuClick={this.toggleMenu}/>
 
                     <div className={'content'}>
-                        <Route exact path={['/', '/pokémon/:pokemonName', '/random', '/type/:type']} render={({match}) => (
+                        <Route exact path={['/', '/pokémon/:pokemonName', '/random', '/type/:type']}  render={({match}) => (
                             <Pokémons jsonData={this.state.jsonData} match={match}/>)}/>
 
                         <Route path={'/types'} render={({match}) => (
@@ -38,7 +39,11 @@ class App extends React.Component {
                         <div/>
                     </div>
 
-                    <Route exact path={['/random','/pokémon/:pokemonName']} render={({match}) => (
+                    <AnimatedRoute exact path={['/random','/pokémon/:pokemonName']}
+                                   atEnter={{ opacity: 0 }} atLeave={{ opacity: 1 }} atActive={{ opacity: 1 }}
+                                   mapStyles={(styles) => ({
+                                       opacity: styles.opacity,
+                                   })} render={({match}) => (
                         <PokémonDetails match={match}/>)}/>
                     <PokéFooter/>
                 </div>
@@ -64,5 +69,3 @@ class App extends React.Component {
 }
 
 export default App;
-
-// const AppWithRouter = withRouter(App)
