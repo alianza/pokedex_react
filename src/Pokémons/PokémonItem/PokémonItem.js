@@ -2,7 +2,7 @@ import './PokémonItem.scss'
 import {Component} from "react";
 import {Pokémon} from "../../entity/Pokémon";
 import capitalize from "../../helpers/Capitalize";
-import TypeToColor from "../../helpers/TypeToColor";
+import typeToColor from "../../helpers/TypeToColor";
 import PokémonService from "../../PokémonService/PokémonService";
 
 class PokémonItem extends Component {
@@ -15,20 +15,30 @@ class PokémonItem extends Component {
 
     render() {
         return (
-            <div className="pokemon" onClick={e => this.props.onPokemonClick(this.state.pokémon, e)}
+            <div className="pokemon"
                  style={this.state.pokémon.sprites.front_default ?
                      {backgroundImage: 'url(' + this.state.pokémon.sprites.front_default + ')'} :
                      {backgroundImage: 'url(./placeholder.png)',
                      backgroundSize: '50%',
                      backgroundPosition: 'center'}}>
                 <h3 className="pokemon-name">{capitalize(this.props.pokémonRef.name)}</h3>
-                {this.state.pokémon.types[0].type && <p className="pokemon-type" style={{backgroundColor: TypeToColor(this.state.pokémon.types[0].type.name)}}>{this.state.pokémon.types[0].type.name}</p>}
+                {this.state.pokémon.types[0].type && <p className="pokemon-type" style={{backgroundColor: typeToColor(this.state.pokémon.types[0].type.name)}}>{this.state.pokémon.types[0].type.name}</p>}
             </div>
         );
     }
 
     componentDidMount() {
-        PokémonService.doLoad(this.props.pokémonRef.url).then(json => {this.setState({pokémon: json}); console.log(this.state)});
+        this.loadPokémon()
+    }
+
+    componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS) {
+        if (prevState.pokémon.name !== this.props.pokémonRef.name) {
+            this.loadPokémon()
+        }
+    }
+
+    loadPokémon = () => {
+        PokémonService.doLoad(this.props.pokémonRef.url).then(json => {this.setState({pokémon: json});});
     }
 }
 

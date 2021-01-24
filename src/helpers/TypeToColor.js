@@ -1,4 +1,4 @@
-const TypeToColor = (type: string) => {
+const typeToColor = (type: string) => {
     if (!type) return ''
     type = type.toString()
     switch (type) {
@@ -25,4 +25,4 @@ const TypeToColor = (type: string) => {
     }
 }
 
-export default TypeToColor
+export default typeToColor

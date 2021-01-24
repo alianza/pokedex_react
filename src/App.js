@@ -4,7 +4,6 @@ import PokéHeader from "./PokéHeader/PokéHeader";
 import PokéMenu from "./PokéMenu/PokéMenu";
 import PokéFooter from "./PokéFooter/PokéFooter";
 import PokémonDetails from "./PokémonDetails/PokémonDetails";
-import PokémonService from "./PokémonService/PokémonService";
 import {BrowserRouter as Router, Route} from "react-router-dom";
 import Pokémons from "./Pokémons/Pokémons";
 import Types from "./Types/Types";
@@ -30,16 +29,10 @@ class App extends React.Component {
                     <div className={'content'}>
 
                         <Route exact={true} path={['/', '/pokémon/:pokemonName', '/random', '/type/:type']} render={({match}) => (
-                            <Pokémons onPokémonClick={this.togglePokémonDetails} jsonData={this.state.jsonData} match={match}/>)}/>
+                            <Pokémons jsonData={this.state.jsonData} match={match}/>)}/>
 
                         <Route exact={true} path={'/types'} render={({match}) => (
                             <Types match={match}/>)}/>
-
-                        {this.state.jsonData.previous &&
-                        <button className="button button-prev" onClick={e => this.loadPreviousPage(e)}>Previous page</button>}
-
-                        {this.state.jsonData.next &&
-                        <button className="button button-next" onClick={e => this.loadNextPage(e)}>Next page</button>}
                     </div>
 
                     <div id="loader">
@@ -69,26 +62,8 @@ class App extends React.Component {
             document.getElementById('app').classList.add('menu-active')
         }
     }
-
-    loadTypes = () => {
-        PokémonService.loadTypes().then(json => {this.setState({jsonData: json});});
-    }
-
-    loadNextPage = () => {
-        this.setState({jsonData: JSON})
-        PokémonService.doLoad(this.state.jsonData.next).then(json => {this.setState({jsonData: json});});
-    }
-
-    loadPreviousPage = () => {
-        this.setState({jsonData: JSON})
-        PokémonService.doLoad(this.state.jsonData.previous).then(json => {this.setState({jsonData: json});});
-    }
-
-    togglePokémonDetails = (e, pokémon) => {
-        console.log(e, pokémon);
-
-
-    }
 }
 
 export default App;
+
+// const AppWithRouter = withRouter(App)
