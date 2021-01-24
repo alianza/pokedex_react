@@ -24,21 +24,20 @@ class Pokémons extends Component {
                     <div onClick={this.sort} className="button button-sort">Sort ⇕</div>
                 </div>
                 <ul className="pokemons-list">
-                        {this.state.jsonData.results[0] &&
-                            this.state.jsonData.results.map((e, i) => {
-                                return <li className="pokemons-item" key={i}>
-                                    <Link to={`/pokémon/${e.name}`}><PokémonItem pokémonRef={e}/></Link>
-                                       </li>})
-                        }
-            </ul>
-                {!this.state.jsonData.results[0] && <h2>No results :(</h2>}
+                    {this.state.jsonData.results[0] &&
+                    this.state.jsonData.results.map((e, i) => {
+                        return <li className="pokemons-item" key={i}>
+                            <Link to={`/pokémon/${e.name}`}><PokémonItem pokémonRef={e}/></Link>
+                        </li>})}
+                </ul>
+                {!this.state.jsonData.results.length && <h2>No results :(</h2>}
 
                 {this.state && this.state.jsonData.previous &&
                 <button className="button button-prev" onClick={e => this.loadPreviousPage(e)}>Previous page</button>}
 
                 {this.state && this.state.jsonData.next &&
                 <button className="button button-next" onClick={e => this.loadNextPage(e)}>Next page</button>}
-    </div>
+            </div>
         );
     }
 
@@ -70,7 +69,9 @@ class Pokémons extends Component {
     }
 
     loadPokémons = () => {
-        PokémonService.getPokemons().then(json => {this.setState({jsonData: json});});
+        PokémonService.getPokemons().then(json => {
+            this.setState({jsonData: json});
+        });
     }
 
     loadTypePokémons = (type) => {
@@ -80,17 +81,22 @@ class Pokémons extends Component {
             json.results.forEach(function (result, index) {
                 json.results[index] = result.pokemon // Lift all pokemons results one level up in hierarchy
             })
-            this.setState({jsonData: json});});
+            this.setState({jsonData: json});
+        });
     }
 
     loadNextPage = () => {
         this.setState({})
-        PokémonService.doLoad(this.state.jsonData.next).then(json => {this.setState({jsonData: json});});
+        PokémonService.doLoad(this.state.jsonData.next).then(json => {
+            this.setState({jsonData: json});
+        });
     }
 
     loadPreviousPage = () => {
         this.setState({})
-        PokémonService.doLoad(this.state.jsonData.previous).then(json => {this.setState({jsonData: json});});
+        PokémonService.doLoad(this.state.jsonData.previous).then(json => {
+            this.setState({jsonData: json});
+        });
     }
 
     sort = () => {

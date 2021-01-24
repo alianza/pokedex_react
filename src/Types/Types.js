@@ -28,7 +28,9 @@ class Types extends Component {
     }
 
     loadTypes = () => {
-        PokémonService.getTypes().then(json => {this.setState({jsonData: json});});
+        PokémonService.getTypes().then(json => {
+            this.setState({jsonData: json});
+        });
     }
 
     sort = () => {
