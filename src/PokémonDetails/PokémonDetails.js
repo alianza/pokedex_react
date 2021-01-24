@@ -4,14 +4,24 @@ import {Link, withRouter} from "react-router-dom";
 import PokémonService from "../PokémonService/PokémonService";
 import capitalize from "../helpers/Capitalize";
 import typeToColor from "../helpers/TypeToColor";
+import {Pokémon} from "../entity/Pokémon";
+import Loader from "../helpers/Loader";
+import scrollToTop from "../helpers/ScrollToTop";
 
 class PokémonDetails extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            pokémon: new Pokémon(),
+        }
+    }
+
     render() {
         return (
             <React.Fragment>
                 <div onClick={this.goBack} className="backdrop"/>
 
-                {this.state &&
+                {this.state.pokémon.name &&
                 <React.Fragment>
                     <div className="details">
                         <div onClick={this.goBack} className="details-close">✖</div>
@@ -37,41 +47,33 @@ class PokémonDetails extends Component {
                                     <h2>Types</h2>
                                     {this.state.pokémon.types.map((type) => {
                                         return <Link key={type.type.name} to={`/type/${type.type.name}`}
-                                                style={{backgroundColor: typeToColor(type.type.name)}}
-                                                className="details-info-types-type">{capitalize(type.type.name)}
-                                        </Link>
-                                    })}
+                                                style={{backgroundColor: typeToColor(type.type.name)}} onClick={scrollToTop}
+                                                className="details-info-types-type">{capitalize(type.type.name)}</Link>})}
                                 </div>
-
                                 <div className="details-info-stats">
                                     <h2>Stats</h2>
-                                    {
-                                        this.state.pokémon.stats.map((stat) => {
-                                            return <div className="details-info-stats-stat" key={stat.stat.name}>
-                                                {capitalize(stat.stat.name)}
-                                                <div style={{
-                                                    width: `${stat.base_stat}px`,
-                                                    backgroundColor: typeToColor(this.state.pokémon.types[0].type.name)
-                                                }}>
-                                                    {stat.base_stat}</div>
-                                            </div>
-                                        })}
-
+                                    {this.state.pokémon.stats.map((stat) => {
+                                        return <div className="details-info-stats-stat" key={stat.stat.name}>
+                                            {capitalize(stat.stat.name)}
+                                            <div style={{
+                                                width: `${stat.base_stat}px`,
+                                                backgroundColor: typeToColor(this.state.pokémon.types[0].type.name)
+                                            }}>{stat.base_stat}</div>
+                                        </div>})}
                                 </div>
                             </div>
                             <div className="details-image">
-
-                                <div id="flip-box">
+                                <div id="flip-box" className={!this.state.pokémon.sprites.back_default ? 'disabled' : ''}>
                                     <div id="flip-box-inner">
                                         <div id="flip-box-front">
                                             <img alt="Pokemon front" src={this.state.pokémon.sprites.front_default}/>
                                         </div>
-                                        <div id="flip-box-back">
+{this.state.pokémon.sprites.back_default && <div id="flip-box-back">
                                             <img alt="Pokemon back" src={this.state.pokémon.sprites.back_default}/>
-                                        </div>
+                                        </div>}
                                     </div>
                                 </div>
-                                <button onClick={this.toggleImage} className="button">↻</button>
+{this.state.pokémon.sprites.back_default && <button onClick={this.toggleImage} className="button">↻</button>}
                             </div>
                         </div>
                     </div>
@@ -92,14 +94,20 @@ class PokémonDetails extends Component {
     }
 
     loadPokémon = () => {
+        Loader.showLoader();
         PokémonService.getPokémon(this.props.match.params.pokemonName).then(json => {
-            if (json) { this.setState({pokémon: json}); }
+            if (json) {
+                this.setState({pokémon: json});
+                Loader.hideLoader();
+            }
         });
     }
 
     loadRandomPokémon = () => {
+        Loader.showLoader();
         PokémonService.getRandomPokémon().then(json => {
             this.setState({pokémon: json});
+            Loader.hideLoader();
         });
     }
 

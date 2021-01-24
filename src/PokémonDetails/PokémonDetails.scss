@@ -145,10 +145,15 @@
             &-back {
                 transform: rotateY(180deg);
             }
-        }
 
-        #flip-box:hover #flip-box-inner {
-            transform: rotateY(180deg);
+
+            &:hover #flip-box-inner {
+                transform: rotateY(180deg);
+            }
+
+            &.disabled:hover #flip-box-inner {
+                transform: none;
+            }
         }
     }
 
