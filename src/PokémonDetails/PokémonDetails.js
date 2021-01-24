@@ -93,7 +93,7 @@ class PokémonDetails extends Component {
 
     loadPokémon = () => {
         PokémonService.getPokémon(this.props.match.params.pokemonName).then(json => {
-            this.setState({pokémon: json});
+            if (json) { this.setState({pokémon: json}); }
         });
     }
 

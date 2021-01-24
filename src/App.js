@@ -4,7 +4,7 @@ import PokéHeader from "./PokéHeader/PokéHeader";
 import PokéMenu from "./PokéMenu/PokéMenu";
 import PokéFooter from "./PokéFooter/PokéFooter";
 import PokémonDetails from "./PokémonDetails/PokémonDetails";
-import {BrowserRouter as Router, Route} from "react-router-dom";
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import Pokémons from "./Pokémons/Pokémons";
 import Types from "./Types/Types";
 import {Pokémon} from "./entity/Pokémon";
@@ -28,11 +28,15 @@ class App extends React.Component {
                     <PokéMenu onMenuClick={this.toggleMenu}/>
 
                     <div className={'content'}>
+                        <Switch>
                         <Route exact path={['/', '/pokémon/:pokemonName', '/random', '/type/:type']}  render={({match}) => (
                             <Pokémons jsonData={this.state.jsonData} match={match}/>)}/>
 
                         <Route path={'/types'} render={({match}) => (
                             <Types match={match}/>)}/>
+
+                        <Route render={() => (<h1>404 Oops...</h1>)}/>
+                        </Switch>
                     </div>
 
                     <div id="loader">
