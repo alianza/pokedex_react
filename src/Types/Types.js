@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import './Types.scss'
 import PokémonService from "../PokémonService/PokémonService";
 import TypeItem from "./TypeItem/TypeItem";
+import Loader from "../helpers/Loader";
 
 class Types extends Component {
     render() {
@@ -28,16 +29,18 @@ class Types extends Component {
     }
 
     loadTypes = () => {
+        Loader.showLoader();
         PokémonService.getTypes().then(json => {
             this.setState({jsonData: json});
+            Loader.hideLoader();
         });
     }
 
     sort = () => {
-        let list = document.getElementsByClassName('types-list')[0]
-        let children = list.children
-        children = [...children].reverse()
-        list.innerHTML = ''
+        let list = document.getElementsByClassName('types-list')[0];
+        let children = list.children;
+        children = [...children].reverse();
+        list.innerHTML = '';
         children.forEach(function (result) {
             list.innerHTML += result.outerHTML;
         })
