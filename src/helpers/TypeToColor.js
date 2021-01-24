@@ -1,5 +1,4 @@
 const TypeToColor = (type: string) => {
-    console.log(type);
     if (!type) return ''
     type = type.toString()
     switch (type) {

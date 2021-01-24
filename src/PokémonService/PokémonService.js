@@ -1,6 +1,6 @@
 const baseUrl = "https://pokeapi.co/api/v2";
 
-const PokMonService = {
+const PokémonService = {
     doLoad(url) { // Base method for doing http Get requests
 
         if (!url.includes(baseUrl)) {
@@ -13,6 +13,11 @@ const PokMonService = {
     },
     loadPokemons() {
         return this.doLoad('/pokemon').then(jsonData => {
+            return jsonData
+        }).catch(e => { console.log('Error', e) });
+    },
+    loadPokémon(pokémonName) {
+        return this.doLoad(`/pokemon/${pokémonName}`).then(jsonData => {
             return jsonData
         }).catch(e => { console.log('Error', e) });
     },
@@ -33,4 +38,4 @@ const PokMonService = {
     }
 }
 
-export default PokMonService
+export default PokémonService
