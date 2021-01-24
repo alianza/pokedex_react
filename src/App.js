@@ -27,11 +27,10 @@ class App extends React.Component {
                     <PokéMenu onMenuClick={this.toggleMenu}/>
 
                     <div className={'content'}>
-
-                        <Route exact={true} path={['/', '/pokémon/:pokemonName', '/random', '/type/:type']} render={({match}) => (
+                        <Route exact path={['/', '/pokémon/:pokemonName', '/random', '/type/:type']} render={({match}) => (
                             <Pokémons jsonData={this.state.jsonData} match={match}/>)}/>
 
-                        <Route exact={true} path={'/types'} render={({match}) => (
+                        <Route path={'/types'} render={({match}) => (
                             <Types match={match}/>)}/>
                     </div>
 
@@ -39,7 +38,7 @@ class App extends React.Component {
                         <div/>
                     </div>
 
-                    <Route exact={true} path={['/random','/pokémon/:pokemonName']} render={({match}) => (
+                    <Route exact path={['/random','/pokémon/:pokemonName']} render={({match}) => (
                         <PokémonDetails match={match}/>)}/>
                     <PokéFooter/>
                 </div>
