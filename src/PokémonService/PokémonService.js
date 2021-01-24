@@ -13,41 +13,45 @@ const PokémonService = {
             .then( data => {return data});
     },
 
-    loadPokemons() {
+    getPokemons() {
         return this.doLoad('/pokemon').then(jsonData => {
             return jsonData
         }).catch(e => { console.log('Error', e) });
     },
 
-    loadPokémon(pokémonName) {
+    getPokémon(pokémonName) {
         return this.doLoad(`/pokemon/${pokémonName}`).then(jsonData => {
             return jsonData
         }).catch(e => { console.log('Error', e) });
     },
 
-    getTotalNumberOfPokemon() {
-        return this.doLoad('/pokemon-species/?limit=0').then(jsonData => {
-            return jsonData
-        }).catch(e => { console.log('Error', e) });
-    },
-
-    loadTypes() {
+    getTypes() {
         return this.doLoad('/type/').then(jsonData => {
             return jsonData
         }).catch(e => { console.log('Error', e) });
     },
 
-    loadTypePokémons(type) {
+    getTypePokémons(type) {
         return this.doLoad(`/type/${type}`).then(jsonData => {
             return jsonData
         }).catch(e => { console.log('Error', e) });
     },
 
-    loadRandomPokemon(randomIndex) {
-        return this.doLoad('/pokemon/' + randomIndex).then(jsonData => {
+    getRandomPokémon() {
+        return this.getTotalNumberOfPokémon().then(json => {
+            const totalNumberOfPokémon = json.count
+            const randomIndex = Math.floor(Math.random() * (totalNumberOfPokémon - 1)) + 1
+            return this.doLoad(`/pokemon/${randomIndex}`).then(jsonData => {
+                return jsonData
+            }).catch(e => { console.log('Error', e) });
+        })
+    },
+
+    getTotalNumberOfPokémon() {
+        return this.doLoad('/pokemon-species/?limit=0').then(jsonData => {
             return jsonData
         }).catch(e => { console.log('Error', e) });
-    }
+    },
 }
 
 export default PokémonService
