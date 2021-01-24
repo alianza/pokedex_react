@@ -1,9 +1,10 @@
 import './PokémonItem.scss'
-import {Component} from "react";
+import React, {Component} from "react";
 import {Pokémon} from "../../entity/Pokémon";
 import capitalize from "../../helpers/Capitalize";
 import typeToColor from "../../helpers/TypeToColor";
 import PokémonService from "../../PokémonService/PokémonService";
+import pokéball_closed from "../../img/pokéball_closed.png"
 
 class PokémonItem extends Component {
     constructor(props) {
@@ -18,7 +19,7 @@ class PokémonItem extends Component {
             <div className="pokemon"
                  style={this.state.pokémon.sprites.front_default ?
                      {backgroundImage: 'url(' + this.state.pokémon.sprites.front_default + ')'} :
-                     {backgroundImage: 'url(./placeholder.png)',
+                     {backgroundImage: `url(${pokéball_closed})`,
                      backgroundSize: '50%',
                      backgroundPosition: 'center'}}>
                 <h3 className="pokemon-name">{capitalize(this.props.pokémonRef.name)}</h3>
