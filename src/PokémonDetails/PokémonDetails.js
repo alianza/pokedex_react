@@ -1,6 +1,6 @@
 import './PokémonDetails.scss'
 import React, {Component} from 'react';
-import {Link} from "react-router-dom";
+import {withRouter, Link} from "react-router-dom";
 import PokémonService from "../PokémonService/PokémonService";
 import capitalize from "../helpers/Capitalize";
 import typeToColor from "../helpers/TypeToColor";
@@ -9,12 +9,12 @@ class PokémonDetails extends Component {
     render() {
         return (
             <div>
-                <Link to={'/'} className="backdrop"/>
+                <div onClick={this.goBack} className="backdrop"/>
 
                 {this.state &&
                 <div className="details">
 
-                    <Link to={'/'} className="details-close">✖</Link>
+                    <div onClick={this.goBack} className="details-close">✖</div>
 
                     <div className="details-container">
                         <div className="details-info">
@@ -94,6 +94,10 @@ class PokémonDetails extends Component {
     toggleImage = () => {
         document.getElementById('flip-box').classList.toggle('active');
     }
+
+    goBack = () => {
+        this.props.history.goBack()
+    }
 }
 
-export default PokémonDetails;
+export default withRouter(PokémonDetails);
