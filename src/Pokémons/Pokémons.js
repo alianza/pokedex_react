@@ -53,6 +53,9 @@ class Pokémons extends Component {
             if (this.props.match.path === "/random") {
                 return; // Don't update data when random pokémon is detailed
             }
+            if (this.props.match.path === "/" && !prevProps.match.path.includes('/type')) {
+                return; // Don't update data already on homepage except when coming from type
+            }
             this.initData()
         }
     }
