@@ -9,7 +9,7 @@ class Types extends Component {
             <div className="types">
                 <div className="types-header">
                     <h1>Choose a Type!</h1>
-                    <div className="button button-sort">Sort ⇕</div>
+                    <div onClick={this.sort} className="button button-sort">Sort ⇕</div>
                 </div>
                 <ul className="types-list">
                     {this.state &&
@@ -28,15 +28,17 @@ class Types extends Component {
     }
 
     loadTypes = () => {
-        PokémonService.loadTypes().then(json => {this.setState({jsonData: json});});
-    }
-
-    onTypeClick = (e, type) => {
-        this.props.onTypeClick(e, type)
+        PokémonService.getTypes().then(json => {this.setState({jsonData: json});});
     }
 
     sort = () => {
-
+        let list = document.getElementsByClassName('types-list')[0]
+        let children = list.children
+        children = [...children].reverse()
+        list.innerHTML = ''
+        children.forEach(function (result) {
+            list.innerHTML += result.outerHTML;
+        })
     }
 }
 
