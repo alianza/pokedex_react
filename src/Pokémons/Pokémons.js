@@ -49,15 +49,19 @@ class Pokémons extends Component {
     componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS) {
         if (this.props.match.params !== prevProps.match.params) {
             if (this.props.match.params.pokemonName && !prevProps.match.params.pokemonName) {
-                return; // Don't update data if pokemon is detailed
+                return; // Don't update data if pokémon is detailed
             }
+            if (this.props.match.path === "/random") {
+                return; // Don't update data when random pokémon is detailed
+            }
+            console.log("INIT");
             this.initData()
         }
     }
 
     initData = () => {
         if (this.props.match.params.type) {
-            this.setState({title: `${capitalize(this.props.match.params.type)} pokémon!`})
+            this.setState({title: `${capitalize(this.props.match.params.type)} type Pokémon!`})
             this.loadTypePokémons(this.props.match.params.type)
         } else {
             this.setState({title: "Pick a creature!"})
@@ -66,11 +70,11 @@ class Pokémons extends Component {
     }
 
     loadPokémons = () => {
-        PokémonService.loadPokemons().then(json => {this.setState({jsonData: json});});
+        PokémonService.getPokemons().then(json => {this.setState({jsonData: json});});
     }
 
     loadTypePokémons = (type) => {
-        PokémonService.loadTypePokémons(type).then(json => {
+        PokémonService.getTypePokémons(type).then(json => {
             Object.defineProperty(json, 'results', Object.getOwnPropertyDescriptor(json, 'pokemon'));
             delete json['pokemon']; // Change name of pokemons prop to results
             json.results.forEach(function (result, index) {
@@ -90,7 +94,13 @@ class Pokémons extends Component {
     }
 
     sort = () => {
-
+        let list = document.getElementsByClassName('pokemons-list')[0]
+        let children = list.children
+        children = [...children].reverse()
+        list.innerHTML = ''
+        children.forEach(function (result) {
+            list.innerHTML += result.outerHTML;
+        })
     }
 }
 
