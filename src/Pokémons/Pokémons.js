@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import './Pokémons.scss'
 import PokémonItem from "./PokémonItem/PokémonItem";
+import {Link} from "react-router-dom";
+import PokémonService from "../PokémonService/PokémonService";
 
 class Pokémons extends Component {
     render() {
@@ -11,20 +13,38 @@ class Pokémons extends Component {
                     <div onClick={this.sort} className="button button-sort">Sort ⇕</div>
                 </div>
                 <ul className="pokemons-list">
-                        {this.props.jsonData.results ?
-                            this.props.jsonData.results.map((e, i) => {
+                        {this.state &&
+                            this.state.jsonData.results.map((e, i) => {
                                 return <li className="pokemons-item" key={i}>
-                                          <PokémonItem onPokemonClick={this.onPokémonClick} pokémonRef={e}/>
+                                    <Link to={`/pokémon/${e.name}`}><PokémonItem onPokemonClick={this.onPokémonClick} pokémonRef={e}/></Link>
                                        </li>})
-                            : "Loading..." }
+                        }
             </ul>
                 {!this.props.jsonData.results && <h2>No results :(</h2>}
     </div>
         );
     }
-    componentDidMount = () => {
-        console.log(this.props.match);
-        console.log(this.props.jsonData);
+
+    componentDidMount() {
+        this.initData()
+    }
+
+    componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS) {
+        if (this.props.match.params !== prevProps.match.params) {
+            this.initData()
+        }
+    }
+
+    initData = () => {
+        if (this.props.match.params.type) {
+            console.log("Load type Pokémons")
+        } else {
+            this.loadPokémons()
+        }
+    }
+
+    loadPokémons = () => {
+        PokémonService.loadPokemons().then(json => {this.setState({jsonData: json});});
     }
 
     onPokémonClick = (e, pokémon) => {
