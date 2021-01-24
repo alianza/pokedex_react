@@ -14,8 +14,8 @@ class Types extends Component {
                 <ul className="types-list">
                     {this.state &&
                     this.state.jsonData.results.map((type) => {
-                        return <li className="types-item">
-                            <TypeItem key={type.name} type={type}>{type.name}</TypeItem>
+                        return <li key={type.name} className="types-item">
+                            <TypeItem type={type}>{type.name}</TypeItem>
                         </li>
                     })}
                 </ul>

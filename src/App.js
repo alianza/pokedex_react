@@ -52,8 +52,7 @@ class App extends React.Component {
     }
 
     componentDidMount = () => {
-        window.addEventListener("resize", this.onResize)
-        this.onResize()
+        window.addEventListener("resize", this.onResize); this.onResize();
     }
 
     toggleMenu = () => {
