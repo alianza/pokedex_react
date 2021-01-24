@@ -3,24 +3,41 @@ import './Pokémons.scss'
 import PokémonItem from "./PokémonItem/PokémonItem";
 import {Link} from "react-router-dom";
 import PokémonService from "../PokémonService/PokémonService";
+import capitalize from "../helpers/Capitalize";
 
 class Pokémons extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            jsonData: {
+                results: {}
+            },
+            title: "Pick a creature!",
+        }
+    }
+
     render() {
         return (
             <div className="pokemons">
                 <div className="pokemons-header">
-                    <h1>Pick a creature!</h1>
+                    <h1>{this.state.title}</h1>
                     <div onClick={this.sort} className="button button-sort">Sort ⇕</div>
                 </div>
                 <ul className="pokemons-list">
-                        {this.state &&
+                        {this.state.jsonData.results[0] &&
                             this.state.jsonData.results.map((e, i) => {
                                 return <li className="pokemons-item" key={i}>
-                                    <Link to={`/pokémon/${e.name}`}><PokémonItem onPokemonClick={this.onPokémonClick} pokémonRef={e}/></Link>
+                                    <Link to={`/pokémon/${e.name}`}><PokémonItem pokémonRef={e}/></Link>
                                        </li>})
                         }
             </ul>
-                {!this.props.jsonData.results && <h2>No results :(</h2>}
+                {!this.state.jsonData.results[0] && <h2>No results :(</h2>}
+
+                {this.state && this.state.jsonData.previous &&
+                <button className="button button-prev" onClick={e => this.loadPreviousPage(e)}>Previous page</button>}
+
+                {this.state && this.state.jsonData.next &&
+                <button className="button button-next" onClick={e => this.loadNextPage(e)}>Next page</button>}
     </div>
         );
     }
@@ -31,14 +48,19 @@ class Pokémons extends Component {
 
     componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS) {
         if (this.props.match.params !== prevProps.match.params) {
+            if (this.props.match.params.pokemonName && !prevProps.match.params.pokemonName) {
+                return; // Don't update data if pokemon is detailed
+            }
             this.initData()
         }
     }
 
     initData = () => {
         if (this.props.match.params.type) {
-            console.log("Load type Pokémons")
+            this.setState({title: `${capitalize(this.props.match.params.type)} pokémon!`})
+            this.loadTypePokémons(this.props.match.params.type)
         } else {
+            this.setState({title: "Pick a creature!"})
             this.loadPokémons()
         }
     }
@@ -47,8 +69,24 @@ class Pokémons extends Component {
         PokémonService.loadPokemons().then(json => {this.setState({jsonData: json});});
     }
 
-    onPokémonClick = (e, pokémon) => {
-        this.props.onPokémonClick(e, pokémon)
+    loadTypePokémons = (type) => {
+        PokémonService.loadTypePokémons(type).then(json => {
+            Object.defineProperty(json, 'results', Object.getOwnPropertyDescriptor(json, 'pokemon'));
+            delete json['pokemon']; // Change name of pokemons prop to results
+            json.results.forEach(function (result, index) {
+                json.results[index] = result.pokemon // Lift all pokemons results one level up in hierarchy
+            })
+            this.setState({jsonData: json});});
+    }
+
+    loadNextPage = () => {
+        this.setState({})
+        PokémonService.doLoad(this.state.jsonData.next).then(json => {this.setState({jsonData: json});});
+    }
+
+    loadPreviousPage = () => {
+        this.setState({})
+        PokémonService.doLoad(this.state.jsonData.previous).then(json => {this.setState({jsonData: json});});
     }
 
     sort = () => {
