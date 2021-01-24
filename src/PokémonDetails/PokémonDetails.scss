@@ -107,7 +107,7 @@
             margin-top: 1em;
         }
 
-        & .flip-box {
+        & #flip-box {
             background-color: transparent;
             perspective: 1000px;
             height: 25vw;
@@ -116,7 +116,7 @@
             max-height: 256px;
             margin: auto;
 
-            &.active .flip-box-inner {
+            &.active #flip-box-inner {
                 transform: rotateY(180deg);
             }
 
@@ -147,7 +147,7 @@
             }
         }
 
-        .flip-box:hover .flip-box-inner {
+        #flip-box:hover #flip-box-inner {
             transform: rotateY(180deg);
         }
     }
@@ -178,7 +178,7 @@
 
         &-image {
 
-            & .flip-box {
+            & #flip-box {
                 height: 50vw;
                 width: 50vw;
             }
