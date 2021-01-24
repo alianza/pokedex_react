@@ -1,6 +1,7 @@
 import './PokéMenu.scss'
 import React from "react";
 import {NavLink, useLocation} from "react-router-dom";
+import scrollToTop from "../helpers/ScrollToTop";
 
 function PokéMenu() {
     const { pathname } = useLocation();
@@ -12,18 +13,18 @@ function PokéMenu() {
     }
 
     return (
-            <div className="menu">
-                <div onClick={e => this.props.onMenuClick(e)} className="menu-close">✖</div>
-                <h1>Menu</h1>
-                <ul className="menu-top">
-                    <li><NavLink exact to={'/'} activeClassName={'active'}>Home</NavLink></li>
-                    <li><NavLink to={'/types'}  isActive={ () => pathname.includes('/type') } activeClassName={'active'}>Types</NavLink></li>
-                    <li><NavLink exact to={'/random'} activeClassName={'active'}>Random Pokemon</NavLink></li>
-                    <li onClick={about}>About</li>
-                </ul>
-                <p className="menu-bottom">Jan-Willem van Bremen</p>
-            </div>
-        );
+        <div className="menu">
+            <div onClick={e => this.props.onMenuClick(e)} className="menu-close">✖</div>
+            <h1>Menu</h1>
+            <ul className="menu-top">
+                <li><NavLink to={'/'} isActive={ (match) => pathname.includes('/page') || match.url === '/' } activeClassName={'active'} onClick={() => scrollToTop()}>Home</NavLink></li>
+                <li><NavLink to={'/types'}  isActive={ () => pathname.includes('/type') } activeClassName={'active'}>Types</NavLink></li>
+                <li><NavLink exact to={'/random'} activeClassName={'active'}>Random Pokemon</NavLink></li>
+                <li onClick={about}>About</li>
+            </ul>
+            <p className="menu-bottom">Jan-Willem van Bremen</p>
+        </div>
+    );
 }
 
 export default PokéMenu;
