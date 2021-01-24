@@ -36,10 +36,9 @@ class PokémonDetails extends Component {
                                 <div className="details-info-types">
                                     <h2>Types</h2>
                                     {this.state.pokémon.types.map((type) => {
-                                        return <Link key={type.type.name} to={`/type/${type.type.name}`}>
-                                            <div
+                                        return <Link key={type.type.name} to={`/type/${type.type.name}`}
                                                 style={{backgroundColor: typeToColor(type.type.name)}}
-                                                className="details-info-types-type">{capitalize(type.type.name)}</div>
+                                                className="details-info-types-type">{capitalize(type.type.name)}
                                         </Link>
                                     })}
                                 </div>
@@ -95,14 +94,12 @@ class PokémonDetails extends Component {
     loadPokémon = () => {
         PokémonService.getPokémon(this.props.match.params.pokemonName).then(json => {
             this.setState({pokémon: json});
-            console.log(this.state);
         });
     }
 
     loadRandomPokémon = () => {
         PokémonService.getRandomPokémon().then(json => {
             this.setState({pokémon: json});
-            console.log(this.state);
         });
     }
 
