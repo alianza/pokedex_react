@@ -23,7 +23,9 @@ class PokémonItem extends Component {
                      backgroundSize: '50%',
                      backgroundPosition: 'center'}}>
                 <h3 className="pokemon-name">{capitalize(this.props.pokémonRef.name)}</h3>
-                {this.state.pokémon.types[0].type && <p className="pokemon-type" style={{backgroundColor: typeToColor(this.state.pokémon.types[0].type.name)}}>{this.state.pokémon.types[0].type.name}</p>}
+                {this.state.pokémon.types[0].type && <p className="pokemon-type"
+                style={{backgroundColor: typeToColor(this.state.pokémon.types[0].type.name)}}>
+                {capitalize(this.state.pokémon.types[0].type.name)}</p>}
             </div>
         );
     }
