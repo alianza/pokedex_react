@@ -25,7 +25,7 @@ class Types extends Component {
     }
 
     componentDidMount() {
-        this.loadTypes()
+        this.loadTypes();
     }
 
     loadTypes = () => {

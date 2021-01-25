@@ -96,9 +96,9 @@ class PokémonDetails extends Component {
 
     componentDidMount = () => {
         if (this.props.match.params.pokemonName) {
-            this.loadPokémon()
+            this.loadPokémon();
         } else if (this.props.match.path === "/random") {
-            this.loadRandomPokémon()
+            this.loadRandomPokémon();
         }
     }
 

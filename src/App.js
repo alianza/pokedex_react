@@ -39,11 +39,11 @@ class App extends React.Component {
                         </Switch>
                     </div>
 
+                    <PokéFooter/>
+
                     <div id="loader">
                         <div/>
                     </div>
-
-                    <PokéFooter/>
 
                     <AnimatedRoute exact path={['/random','/pokémon/:pokemonName']}
                                    atEnter={{ opacity: 0 }} atLeave={{ opacity: 0 }} atActive={{ opacity: 1 }}
@@ -64,9 +64,9 @@ class App extends React.Component {
 
     onResize = () => {
         if (window.innerWidth < 600) {
-            document.getElementById('app').classList.remove('menu-active')
+            document.getElementById('app').classList.remove('menu-active');
         } else if (window.innerWidth > 900) {
-            document.getElementById('app').classList.add('menu-active')
+            document.getElementById('app').classList.add('menu-active');
         }
     }
 }

@@ -10,11 +10,10 @@ const PokémonService = {
         }
 
         // console.log(url)
-        return fetch(url)
-            .then(response => response.json())
-            .then(data => {
-                // console.log(data);
-                return data})
+        return fetch(url).then(response => response.json())
+               .then(data => {
+               // console.log(data);
+               return data});
     },
 
     getPokémons() {

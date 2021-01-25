@@ -71,9 +71,9 @@ class Pokémons extends Component {
             this.setState({title: `${capitalize(this.props.match.params.type)} type Pokémon!`});
             this.loadTypePokémons(this.props.match.params.type);
         } else if (this.props.match.params.page) { // Page to load is set, load page pokémons from that page
-            this.setState({ page: parseInt(this.props.match.params.page) })
-            let offset = this.props.match.params.page * PokémonService.basePageLimit
-            this.loadPagedPokémon(offset)
+            this.setState({ page: parseInt(this.props.match.params.page) });
+            let offset = this.props.match.params.page * PokémonService.basePageLimit;
+            this.loadPagedPokémon(offset);
         } else { // Default case, load normal pokémon list
             this.setState({title: "Pick a creature!"});
             this.loadPokémons();
@@ -135,9 +135,9 @@ class Pokémons extends Component {
 
     sort = () => {
         let list = document.getElementsByClassName('pokemons-list')[0]
-        let children = list.children
-        children = [...children].reverse()
-        list.innerHTML = ''
+        let children = list.children;
+        children = [...children].reverse();
+        list.innerHTML = '';
         children.forEach(function (result) {
             list.innerHTML += result.outerHTML;
         })
