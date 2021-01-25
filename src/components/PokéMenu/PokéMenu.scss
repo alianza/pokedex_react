@@ -48,6 +48,10 @@
             transition: transform .2s;
             cursor: pointer;
 
+            & a {
+                display: block;
+            }
+
             & .active {
                 font-weight: bold;
             }
