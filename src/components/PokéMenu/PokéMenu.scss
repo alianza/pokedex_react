@@ -17,6 +17,8 @@
         display: none;
         cursor: pointer;
         transition: transform .1s;
+        padding: 1em;
+        margin: -1em;
 
         &:hover {
             transform: scale(1.2);
