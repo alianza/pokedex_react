@@ -1,12 +1,12 @@
 import './App.scss';
 import React from "react";
-import PokéHeader from "./PokéHeader/PokéHeader";
-import PokéMenu from "./PokéMenu/PokéMenu";
-import PokéFooter from "./PokéFooter/PokéFooter";
-import PokémonDetails from "./PokémonDetails/PokémonDetails";
+import PokéHeader from "./components/PokéHeader/PokéHeader";
+import PokéMenu from "./components/PokéMenu/PokéMenu";
+import PokéFooter from "./components/PokéFooter/PokéFooter";
+import PokémonDetails from "./components/PokémonDetails/PokémonDetails";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
-import Pokémons from "./Pokémons/Pokémons";
-import Types from "./Types/Types";
+import Pokémons from "./components/Pokémons/Pokémons";
+import Types from "./components/Types/Types";
 import {Pokémon} from "./entity/Pokémon";
 import { AnimatedRoute } from 'react-router-transition';
 

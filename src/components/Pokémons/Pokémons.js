@@ -2,10 +2,10 @@ import React, {Component} from 'react';
 import './Pokémons.scss'
 import PokémonItem from "./PokémonItem/PokémonItem";
 import {Link} from "react-router-dom";
-import PokémonService from "../helpers/services/PokémonService";
-import capitalize from "../helpers/Capitalize";
-import scrollToTop from "../helpers/ScrollToTop";
-import Loader from "../helpers/Loader";
+import PokémonService from "../../helpers/services/PokémonService";
+import capitalize from "../../helpers/Capitalize";
+import scrollToTop from "../../helpers/ScrollToTop";
+import Loader from "../../helpers/Loader";
 
 class Pokémons extends Component {
     constructor(props) {

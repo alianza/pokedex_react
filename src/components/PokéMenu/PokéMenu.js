@@ -1,7 +1,7 @@
 import './PokéMenu.scss'
 import React from "react";
 import {NavLink, useLocation} from "react-router-dom";
-import scrollToTop from "../helpers/ScrollToTop";
+import scrollToTop from "../../helpers/ScrollToTop";
 
 function PokéMenu(props) {
     const { pathname } = useLocation();

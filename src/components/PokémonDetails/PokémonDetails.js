@@ -1,15 +1,15 @@
 import './PokémonDetails.scss'
 import React, {Component} from 'react';
 import {Link, withRouter} from "react-router-dom";
-import PokémonService from "../helpers/services/PokémonService";
-import capitalize from "../helpers/Capitalize";
-import typeToColor from "../helpers/TypeToColor";
-import {Pokémon} from "../entity/Pokémon";
-import Loader from "../helpers/Loader";
-import scrollToTop from "../helpers/ScrollToTop";
-import CatchService from "../helpers/services/CatchService";
-import pokéball_closed from "../img/pokéball_closed.png"
-import pokéball_open from "../img/pokéball_open.png"
+import PokémonService from "../../helpers/services/PokémonService";
+import capitalize from "../../helpers/Capitalize";
+import typeToColor from "../../helpers/TypeToColor";
+import {Pokémon} from "../../entity/Pokémon";
+import Loader from "../../helpers/Loader";
+import scrollToTop from "../../helpers/ScrollToTop";
+import CatchService from "../../helpers/services/CatchService";
+import pokéball_closed from "../../img/pokéball_closed.png"
+import pokéball_open from "../../img/pokéball_open.png"
 
 class PokémonDetails extends Component {
     constructor(props) {
