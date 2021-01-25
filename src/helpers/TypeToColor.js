@@ -25,4 +25,4 @@ const typeToColor = (type: string) => {
     }
 }
 
-export default typeToColor
+export default typeToColor;

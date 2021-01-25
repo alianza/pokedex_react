@@ -31,4 +31,4 @@ const CatchService = {
     }
 }
 
-export default CatchService
+export default CatchService;

@@ -66,4 +66,4 @@ const PokémonService = {
     },
 }
 
-export default PokémonService
+export default PokémonService;
