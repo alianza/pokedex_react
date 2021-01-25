@@ -70,7 +70,7 @@ class PokémonDetails extends Component {
                         <div id="flip-box" className={!this.state.pokémon.sprites.back_default ? 'disabled' : ''}>
                             <div id="flip-box-inner">
                                 <div id="flip-box-front">
-                                    <img alt="Pokemon front" src={this.state.pokémon.sprites.front_default}/>
+                                    <img alt="Pokemon front" src={this.state.pokémon.sprites.front_default || pokéball_closed}/>
                                 </div>
 {this.state.pokémon.sprites.back_default && <div id="flip-box-back">
                                                 <img alt="Pokemon back" src={this.state.pokémon.sprites.back_default}/>
