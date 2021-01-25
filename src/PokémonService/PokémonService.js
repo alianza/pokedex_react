@@ -5,15 +5,15 @@ const PokémonService = {
     totalNumberOfPokémon: 0,
 
     doLoad(url) { // Base method for doing http Get requests
-        if (!url.includes(this.baseUrl)) {
-            url = this.baseUrl + url;
-        }
+        if (!url.includes(this.baseUrl)) { url = this.baseUrl + url; }
 
         // console.log(url)
-        return fetch(url).then(response => response.json())
-               .then(data => {
-               // console.log(data);
-               return data});
+        return fetch(url).then(response => {
+            if (response.status === 404) { return ''; }
+            if (response.status === 200) { return response.json(); }})
+            .then(data => {
+            // console.log(data);
+            return data}).catch(e => { console.log('Error', e) });
     },
 
     getPokémons() {
