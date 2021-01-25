@@ -1,13 +1,13 @@
 import './PokémonDetails.scss'
 import React, {Component} from 'react';
 import {Link, withRouter} from "react-router-dom";
-import PokémonService from "../PokémonService/PokémonService";
+import PokémonService from "../helpers/services/PokémonService";
 import capitalize from "../helpers/Capitalize";
 import typeToColor from "../helpers/TypeToColor";
 import {Pokémon} from "../entity/Pokémon";
 import Loader from "../helpers/Loader";
 import scrollToTop from "../helpers/ScrollToTop";
-import Catch from "../helpers/Catch";
+import CatchService from "../helpers/services/CatchService";
 import pokéball_closed from "../img/pokéball_closed.png"
 import pokéball_open from "../img/pokéball_open.png"
 
@@ -106,6 +106,7 @@ class PokémonDetails extends Component {
         PokémonService.getPokémon(this.props.match.params.pokemonName).then(json => {
             if (json) {
                 this.setState({pokémon: json});
+                this.updateCaughtState();
                 Loader.hideLoader();
             }
         });
@@ -115,19 +116,27 @@ class PokémonDetails extends Component {
         Loader.showLoader();
         PokémonService.getRandomPokémon().then(json => {
             this.setState({pokémon: json});
+            this.updateCaughtState();
             Loader.hideLoader();
         });
     }
 
     catchPokémon = () => {
         if (this.state.caught) {
-            Catch.remove(this.state.pokémon.name);
+            CatchService.remove(this.state.pokémon.name);
             this.setState({caught: false});
         } else {
-            Catch.add(this.state.pokémon);
+            CatchService.add(this.state.pokémon);
             this.setState({caught: true});
         }
-        console.log(Catch.getAll());
+        console.log(CatchService.getAll());
+    }
+
+
+    updateCaughtState = () => {
+        console.log(!!CatchService.get(this.state.pokémon.name))
+        console.log(CatchService.get(this.state.pokémon.name))
+        this.setState({caught: !!CatchService.get(this.state.pokémon.name)})
     }
 
     toggleImage = () => {

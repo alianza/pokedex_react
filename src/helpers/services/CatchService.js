@@ -1,4 +1,4 @@
-const Catch = {
+const CatchService = {
     add(pokémon)  {
         let pokémons = this.getAll() || [];
         pokémons[pokémons.length] = pokémon;
@@ -31,4 +31,4 @@ const Catch = {
     }
 }
 
-export default Catch
+export default CatchService

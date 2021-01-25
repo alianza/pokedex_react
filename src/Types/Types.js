@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './Types.scss'
-import PokémonService from "../PokémonService/PokémonService";
+import PokémonService from "../helpers/services/PokémonService";
 import TypeItem from "./TypeItem/TypeItem";
 import Loader from "../helpers/Loader";
 
