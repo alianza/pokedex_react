@@ -29,13 +29,13 @@ class App extends React.Component {
 
                     <div className={'content'}>
                         <Switch>
-                        <Route exact path={['/', '/pokémon/:pokemonName', '/random', '/type/:type', '/page/:page']}  render={({match}) => (
-                            <Pokémons jsonData={this.state.jsonData} match={match}/>)}/>
+                            <Route exact path={['/', '/pokémon/:pokemonName', '/random', '/type/:type', '/page/:page']} render={({match}) => (
+                                <Pokémons jsonData={this.state.jsonData} match={match}/>)}/>
 
-                        <Route path={'/types'} render={({match}) => (
-                            <Types match={match}/>)}/>
+                            <Route path={'/types'} render={({match}) => (
+                                <Types match={match}/>)}/>
 
-                        <Route render={() => (<h1>404 Oops...</h1>)}/>
+                            <Route render={() => (<h1>404 Oops...</h1>)}/>
                         </Switch>
                     </div>
 
@@ -47,8 +47,8 @@ class App extends React.Component {
 
                     <AnimatedRoute exact path={['/random','/pokémon/:pokemonName']}
                                    atEnter={{ opacity: 0 }} atLeave={{ opacity: 0 }} atActive={{ opacity: 1 }}
-                                   mapStyles={(styles) => ({ opacity: styles.opacity, })} render={({match}) => (
-                        <PokémonDetails match={match}/>)}/>
+                                   mapStyles={(styles) => ({ opacity: styles.opacity, })}
+                                   render={({match}) => (<PokémonDetails match={match}/>)}/>
                 </div>
             </Router>
         );
