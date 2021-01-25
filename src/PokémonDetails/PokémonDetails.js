@@ -122,10 +122,10 @@ class PokémonDetails extends Component {
     catchPokémon = () => {
         if (this.state.caught) {
             Catch.remove(this.state.pokémon.name);
-            this.setState({caught: false})
+            this.setState({caught: false});
         } else {
             Catch.add(this.state.pokémon);
-            this.setState({caught: true})
+            this.setState({caught: true});
         }
         console.log(Catch.getAll());
     }
@@ -135,7 +135,8 @@ class PokémonDetails extends Component {
     }
 
     goBack = () => {
-        this.props.history.goBack()
+        this.props.history.goBack();
+        this.goBack = () => {} // Allow goBack() to be called only once
     }
 }
 
