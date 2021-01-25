@@ -3,18 +3,18 @@ import React from "react";
 import {NavLink, useLocation} from "react-router-dom";
 import scrollToTop from "../helpers/ScrollToTop";
 
-function PokéMenu() {
+function PokéMenu(props) {
     const { pathname } = useLocation();
 
     const about = () => {
         alert('This is a Web PokéDex Application!\n' +
             'Discover countless Pokemon and their info!\n' +
-            'Made by Jan-Willem van Bremen - 2020')
+            'Made by Jan-Willem van Bremen - 2020');
     }
 
     return (
         <div className="menu">
-            <div onClick={e => this.props.onMenuClick(e)} className="menu-close">✖</div>
+            <div onClick={e => props.onMenuClick(e)} className="menu-close">✖</div>
             <h1>Menu</h1>
             <ul className="menu-top">
                 <li><NavLink to={'/'} isActive={ (match) => pathname.includes('/page') || match.url === '/' } activeClassName={'active'} onClick={() => scrollToTop()}>Home</NavLink></li>
