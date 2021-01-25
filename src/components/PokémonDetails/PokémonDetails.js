@@ -129,14 +129,10 @@ class PokémonDetails extends Component {
             CatchService.add(this.state.pokémon);
             this.setState({caught: true});
         }
-        console.log(CatchService.getAll());
     }
 
-
     updateCaughtState = () => {
-        console.log(!!CatchService.get(this.state.pokémon.name))
-        console.log(CatchService.get(this.state.pokémon.name))
-        this.setState({caught: !!CatchService.get(this.state.pokémon.name)})
+        this.setState({caught: !!CatchService.get(this.state.pokémon.name)});
     }
 
     toggleImage = () => {
