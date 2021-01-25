@@ -9,7 +9,7 @@ const Catch = {
         let pokémons = this.getAll() || [];
         pokémons.forEach(function (pokémon, index) {
             if (pokémon.name === pokémonName) {
-                pokémons.splice(index);
+                pokémons.splice(index, 1);
             }
         });
         localStorage.setItem('pokémons', JSON.stringify(pokémons));
