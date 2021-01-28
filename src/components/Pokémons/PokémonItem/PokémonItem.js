@@ -31,12 +31,16 @@ class PokémonItem extends Component {
     }
 
     componentDidMount() {
-        this.loadPokémon();
+        if (this.props.pokémonRef.url) {
+            this.loadPokémon();
+        }
     }
 
     componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS) {
         if (prevState.pokémon.name !== this.props.pokémonRef.name) {
-            this.loadPokémon();
+            if (this.props.pokémonRef.url) {
+                this.loadPokémon();
+            }
         }
     }
 

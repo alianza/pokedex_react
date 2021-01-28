@@ -29,7 +29,7 @@ class App extends React.Component {
 
                     <div className={'content'}>
                         <Switch>
-                            <Route exact path={['/', '/pokémon/:pokemonName', '/random', '/type/:type', '/page/:page']} render={({match}) => (
+                            <Route exact path={['/', '/pokémon/:pokemonName', '/random', '/type/:type', '/page/:page', '/my_pokémons']} render={({match}) => (
                                 <Pokémons jsonData={this.state.jsonData} match={match}/>)}/>
 
                             <Route path={'/types'} render={({match}) => (

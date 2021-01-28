@@ -6,6 +6,7 @@ import PokémonService from "../../helpers/services/PokémonService";
 import capitalize from "../../helpers/Capitalize";
 import scrollToTop from "../../helpers/ScrollToTop";
 import Loader from "../../helpers/Loader";
+import CatchService from "../../helpers/services/CatchService";
 
 class Pokémons extends Component {
     constructor(props) {
@@ -74,6 +75,8 @@ class Pokémons extends Component {
             this.setState({ page: parseInt(this.props.match.params.page) });
             let offset = this.props.match.params.page * PokémonService.basePageLimit;
             this.loadPagedPokémon(offset);
+        } else if (this.props.match.path === "/my_pokémons") {
+            this.loadCaughtPokémons();
         } else { // Default case, load normal pokémon list
             this.setState({title: "Pick a creature!"});
             this.loadPokémons();
@@ -109,6 +112,14 @@ class Pokémons extends Component {
                 Loader.hideLoader();
             }
         });
+    }
+
+    loadCaughtPokémons() {
+        let results = CatchService.getAll();
+        console.log(results);
+        let jsonData = { results }
+        console.log(jsonData);
+        this.setState({jsonData: jsonData});
     }
 
     loadNextPage = () => {
