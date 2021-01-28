@@ -99,6 +99,7 @@ class PokémonDetails extends Component {
         } else if (this.props.match.path === "/random") {
             this.loadRandomPokémon();
         }
+        this.enableBodyScroll(false);
     }
 
     loadPokémon = () => {
@@ -140,8 +141,14 @@ class PokémonDetails extends Component {
     }
 
     goBack = () => {
+        this.enableBodyScroll(true);
         this.props.history.goBack();
         this.goBack = () => {} // Allow goBack() to be called only once
+    }
+
+    enableBodyScroll(enable) {
+        if (enable) { document.getElementsByTagName('body')[0].classList.remove('scroll_disabled');
+        } else { document.getElementsByTagName('body')[0].classList.add('scroll_disabled'); }
     }
 }
 
