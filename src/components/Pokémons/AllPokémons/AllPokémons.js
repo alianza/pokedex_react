@@ -1,13 +1,12 @@
 import React, {Component} from 'react';
-import './Pokémons.scss'
-import PokémonItem from "./PokémonItem/PokémonItem";
+import './../Pokémons.scss'
+import PokémonItem from "../../PokémonItem/PokémonItem";
 import {Link} from "react-router-dom";
-import PokémonService from "../../helpers/services/PokémonService";
-import capitalize from "../../helpers/Capitalize";
-import scrollToTop from "../../helpers/ScrollToTop";
-import Loader from "../../helpers/Loader";
+import PokémonService from "../../../helpers/services/PokémonService";
+import scrollToTop from "../../../helpers/ScrollToTop";
+import Loader from "../../../helpers/Loader";
 
-class Pokémons extends Component {
+class AllPokémons extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -56,9 +55,6 @@ class Pokémons extends Component {
             if (this.props.match.path === "/random") {
                 return; // Don't initiate data when random pokémon is detailed
             }
-            if (this.props.match.path === "/" && (!prevProps.match.path.includes('/type') && !prevProps.match.path.includes('/page'))) {
-                return; // Don't initiate data already on homepage except when coming from /type or /page
-            }
             if (this.props.match.path === "/page/:page") {
                 return; // Don't initiate data when random pokémon is detailed
             }
@@ -67,10 +63,7 @@ class Pokémons extends Component {
     }
 
     initData = () => {
-        if (this.props.match.params.type) { // Type to load is set, load pokémons from that type
-            this.setState({title: `${capitalize(this.props.match.params.type)} type Pokémon!`});
-            this.loadTypePokémons(this.props.match.params.type);
-        } else if (this.props.match.params.page) { // Page to load is set, load page pokémons from that page
+         if (this.props.match.params.page) { // Page to load is set, load page pokémons from that page
             this.setState({ page: parseInt(this.props.match.params.page) });
             let offset = this.props.match.params.page * PokémonService.basePageLimit;
             this.loadPagedPokémon(offset);
@@ -94,21 +87,6 @@ class Pokémons extends Component {
             this.setState({jsonData: json});
             Loader.hideLoader();
         })
-    }
-
-    loadTypePokémons = (type) => {
-        Loader.showLoader();
-        PokémonService.getTypePokémons(type).then(json => {
-            if (json) {
-                Object.defineProperty(json, 'results', Object.getOwnPropertyDescriptor(json, 'pokemon'));
-                delete json['pokemon']; // Change name of pokemons prop to results
-                json.results.forEach(function (result, index) {
-                    json.results[index] = result.pokemon; // Lift all pokemons results one level up in hierarchy
-                })
-                this.setState({jsonData: json});
-                Loader.hideLoader();
-            }
-        });
     }
 
     loadNextPage = () => {
@@ -144,4 +122,4 @@ class Pokémons extends Component {
     }
 }
 
-export default Pokémons;
+export default AllPokémons;
