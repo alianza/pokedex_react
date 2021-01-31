@@ -50,8 +50,9 @@ class PokémonDetails extends Component {
                         <div className="details-info-types">
                             <h2>Types</h2>
                             {this.state.pokémon.types.map((type) => {
-                                return <Link key={type.type.name} to={`/type/${type.type.name}`}
-                                        style={{backgroundColor: typeToColor(type.type.name)}} onClick={scrollToTop}
+                                return <Link onClick={() => {this.enableBodyScroll(true); scrollToTop()}}
+                                        key={type.type.name} to={`/type/${type.type.name}`}
+                                        style={{backgroundColor: typeToColor(type.type.name)}}
                                         className="details-info-types-type">{capitalize(type.type.name)}</Link>})}
                         </div>
                         <div className="details-info-stats">
@@ -99,6 +100,11 @@ class PokémonDetails extends Component {
         } else if (this.props.match.path === "/random") {
             this.loadRandomPokémon();
         }
+        this.enableBodyScroll(false);
+    }
+
+    componentWillUnmount() {
+        this.enableBodyScroll(true);
     }
 
     loadPokémon = () => {
@@ -140,8 +146,14 @@ class PokémonDetails extends Component {
     }
 
     goBack = () => {
+        this.enableBodyScroll(true);
         this.props.history.goBack();
         this.goBack = () => {} // Allow goBack() to be called only once
+    }
+
+    enableBodyScroll = (enable) => {
+        if (enable) { document.getElementsByTagName('body')[0].classList.remove('scroll_disabled');
+        } else { document.getElementsByTagName('body')[0].classList.add('scroll_disabled'); }
     }
 }
 
