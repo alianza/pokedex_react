@@ -49,10 +49,7 @@ class MyPokémons extends Component {
     }
 
     loadCaughtPokémons() {
-        let results = CatchService.getAll();
-        console.log(results);
-        let jsonData = { results }
-        console.log(jsonData);
+        let jsonData = { results: CatchService.getAll() }
         this.setState({jsonData: jsonData});
     }
 
