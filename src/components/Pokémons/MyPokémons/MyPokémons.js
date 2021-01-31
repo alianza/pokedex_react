@@ -10,8 +10,7 @@ class MyPokémons extends Component {
         this.state = {
             jsonData: {
                 results: {}
-            },
-            title: "My Pokémons!",
+            }
         }
     }
 
@@ -19,7 +18,7 @@ class MyPokémons extends Component {
         return (
             <div className="pokemons">
                 <div className="pokemons-header">
-                    <h1>{this.state.title}</h1>
+                    <h1>My Pokémons!</h1>
                     <div onClick={this.sort} className="button button-sort">Sort ⇕</div>
                 </div>
                 <ul className="pokemons-list">

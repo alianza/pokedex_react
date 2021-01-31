@@ -14,7 +14,6 @@ class AllPokémons extends Component {
             jsonData: {
                 results: {}
             },
-            title: "Pick a creature!",
             page: 1,
         }
     }
@@ -23,7 +22,7 @@ class AllPokémons extends Component {
         return (
             <div className="pokemons">
                 <div className="pokemons-header">
-                    <h1>{this.state.title}</h1>
+                    <h1>Pick a creature!</h1>
                     <div onClick={this.sort} className="button button-sort">Sort ⇕</div>
                 </div>
                 <ul className="pokemons-list">
