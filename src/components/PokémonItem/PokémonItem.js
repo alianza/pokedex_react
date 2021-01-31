@@ -16,12 +16,9 @@ class PokémonItem extends Component {
 
     render() {
         return (
-            <div className="pokemon"
-                 style={this.state.pokémon.sprites.front_default ?
+            <div className="pokemon" style={this.state.pokémon.sprites.front_default ?
                      {backgroundImage: 'url(' + this.state.pokémon.sprites.front_default + ')'} :
-                     {backgroundImage: `url(${pokéball_closed})`,
-                     backgroundSize: '50%',
-                     backgroundPosition: 'center'}}>
+                     {backgroundImage: `url(${pokéball_closed})`, backgroundSize: '50%', backgroundPosition: 'center'}}>
                 <h3 className="pokemon-name">{capitalize(this.props.pokémonRef.name)}</h3>
                 {this.state.pokémon.types[0].type && <p className="pokemon-type"
                 style={{backgroundColor: typeToColor(this.state.pokémon.types[0].type.name)}}>

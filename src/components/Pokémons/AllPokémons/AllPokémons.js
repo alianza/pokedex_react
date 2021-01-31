@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 import PokémonService from "../../../helpers/services/PokémonService";
 import scrollToTop from "../../../helpers/ScrollToTop";
 import Loader from "../../../helpers/Loader";
-import CatchService from "../../helpers/services/CatchService";
+import CatchService from "../../../helpers/services/CatchService";
 
 class AllPokémons extends Component {
     constructor(props) {
@@ -90,21 +90,6 @@ class AllPokémons extends Component {
             this.setState({jsonData: json});
             Loader.hideLoader();
         })
-    }
-
-    loadTypePokémons = (type) => {
-        Loader.showLoader();
-        PokémonService.getTypePokémons(type).then(json => {
-            if (json) {
-                Object.defineProperty(json, 'results', Object.getOwnPropertyDescriptor(json, 'pokemon'));
-                delete json['pokemon']; // Change name of pokemons prop to results
-                json.results.forEach(function (result, index) {
-                    json.results[index] = result.pokemon; // Lift all pokemons results one level up in hierarchy
-                })
-                this.setState({jsonData: json});
-                Loader.hideLoader();
-            }
-        });
     }
 
     loadCaughtPokémons() {
