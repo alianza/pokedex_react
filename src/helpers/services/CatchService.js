@@ -1,7 +1,7 @@
 const CatchService = {
     add(pokémon)  {
         let pokémons = this.getAll() || [];
-        pokémons[pokémons.length] = pokémon;
+        pokémons.unshift(pokémon); // Add pokémon to beginning of array
         localStorage.setItem('pokémons', JSON.stringify(pokémons));
     },
 
