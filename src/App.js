@@ -10,13 +10,13 @@ import Types from "./components/Types/Types";
 import {Pokémon} from "./entity/Pokémon";
 import { AnimatedRoute } from 'react-router-transition';
 import TypePokémons from "./components/Pokémons/TypePokémons/TypePokémons";
+import MyPokémons from "./components/Pokémons/MyPokémons/MyPokémons";
 
 class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             title: 'PokéDex',
-            jsonData: JSON,
             detailPokémon: Pokémon,
         }
     }
@@ -31,13 +31,16 @@ class App extends React.Component {
                     <div className={'content'}>
                         <Switch>
                             <Route exact path={['/', '/pokémon/:pokemonName', '/random', '/page/:page']} render={({match}) => (
-                                <AllPokémons jsonData={this.state.jsonData} match={match}/>)}/>
+                                <AllPokémons match={match}/>)}/>
 
-                            <Route exact path={['/type/:type', '/type/:type/pokémon/:pokemonName', '/my_pokémons']} render={({match}) => (
-                                <TypePokémons jsonData={this.state.jsonData} match={match}/>)}/>
+                            <Route exact path={['/type/:type', '/type/:type/pokémon/:pokemonName']} render={({match}) => (
+                                <TypePokémons match={match}/>)}/>
 
                             <Route path={'/types'} render={({match}) => (
                                 <Types match={match}/>)}/>
+
+                            <Route exact path={['/my_pokémons', '/my_pokémons/:pokemonName']} render={({match}) => (
+                                <MyPokémons match={match}/>)}/>
 
                             <Route render={() => (<h1>404 Oops...</h1>)}/>
                         </Switch>
@@ -49,7 +52,7 @@ class App extends React.Component {
                         <div/>
                     </div>
 
-                    <AnimatedRoute exact path={['/random','/pokémon/:pokemonName', '/type/:type/pokémon/:pokemonName']}
+                    <AnimatedRoute exact path={['/random','/pokémon/:pokemonName', '/type/:type/pokémon/:pokemonName', '/my_pokémons/:pokemonName']}
                                    atEnter={{ opacity: 0 }} atLeave={{ opacity: 0 }} atActive={{ opacity: 1 }}
                                    mapStyles={(styles) => ({ opacity: styles.opacity, })}
                                    render={({match}) => (<PokémonDetails match={match}/>)}/>
