@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import './../Pokémons.scss'
 import {Link} from "react-router-dom";
 import CatchService from "../../../helpers/services/CatchService";
-import MyPokémonItem from "../../PokémonItem/MyPokemonItem";
+import MyPokémonItem from "../../PokémonItem/MyPokémonItem";
 
 class MyPokémons extends Component {
     constructor(props) {
