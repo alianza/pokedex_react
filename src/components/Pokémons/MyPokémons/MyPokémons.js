@@ -34,21 +34,17 @@ class MyPokémons extends Component {
     }
 
     componentDidMount() {
-        this.initData();
+        this.loadCaughtPokémons();
     }
 
     componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS) {
         if (this.props.match.params !== prevProps.match.params) {
-            this.initData()
+            this.loadCaughtPokémons();
         }
     }
 
-    initData = () => {
-        this.loadCaughtPokémons();
-    }
-
     loadCaughtPokémons() {
-        let jsonData = { results: CatchService.getAll() }
+        let jsonData = { results: (CatchService.getAll() || '') }
         this.setState({jsonData: jsonData});
     }
 
