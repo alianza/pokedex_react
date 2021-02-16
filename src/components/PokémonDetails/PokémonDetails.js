@@ -32,7 +32,6 @@ class PokémonDetails extends Component {
 
                 <div className="details-container">
                     <div className="details-info">
-
                         <h1 className="details-info-name">{capitalize(this.state.pokémon.name)}</h1>
                         <div className="details-info-profile">
                             <h2>Profile</h2>
@@ -61,9 +60,8 @@ class PokémonDetails extends Component {
                                 return <div className="details-info-stats-stat" key={stat.stat.name}>
                                     {capitalize(stat.stat.name)}
                                     <div style={{
-                                        width: `${stat.base_stat}px`,
-                                        backgroundColor: typeToColor(this.state.pokémon.types[0].type.name)
-                                    }}>{stat.base_stat}</div>
+                                      width: `${stat.base_stat}px`,
+                                      backgroundColor: typeToColor(this.state.pokémon.types[0].type.name)}}>{stat.base_stat}</div>
                                 </div>})}
                         </div>
                     </div>
@@ -84,10 +82,10 @@ class PokémonDetails extends Component {
             </div>
 {this.props.match.path === "/random" && <div className="button button-random" onClick={this.loadRandomPokémon}>Next →</div>}
 
-{this.state.caught ? <div className="button button-catch tooltip" data-tip={`Let ${capitalize(this.state.pokémon.name)} go!`}
-                     onClick={this.catchPokémon} style={{backgroundImage: `url(${pokéball_closed})`}}/> :
-                <div className="button button-catch tooltip" data-tip={`Catch ${capitalize(this.state.pokémon.name)}!`}
-                     onClick={this.catchPokémon} style={{backgroundImage: `url(${pokéball_open})`}}/>}
+            <div className="button button-catch tooltip"
+                 data-tip={this.state.caught ? `Let ${capitalize(this.state.pokémon.name)} go!` : `Catch ${capitalize(this.state.pokémon.name)}!`}
+                 style={{backgroundImage: `url( ${this.state.caught ? pokéball_closed : pokéball_open} )`}} onClick={this.catchPokémon}/>
+
         </React.Fragment>
                 }
             </React.Fragment>
@@ -152,8 +150,8 @@ class PokémonDetails extends Component {
     }
 
     enableBodyScroll = (enable) => {
-        if (enable) { document.getElementsByTagName('body')[0].classList.remove('scroll_disabled');
-        } else { document.getElementsByTagName('body')[0].classList.add('scroll_disabled'); }
+        if (enable) { document.body.classList.remove('scroll_disabled');
+        } else { document.body.classList.add('scroll_disabled'); }
     }
 }
 
