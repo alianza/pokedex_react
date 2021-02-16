@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
 import './../Pokémons.scss'
 import PokémonItem from "../../PokémonItem/PokémonItem";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import PokémonService from "../../../helpers/services/PokémonService";
 import scrollToTop from "../../../helpers/ScrollToTop";
 import Loader from "../../../helpers/Loader";
-import CatchService from "../../../helpers/services/CatchService";
 
 class AllPokémons extends Component {
     constructor(props) {
@@ -49,28 +48,20 @@ class AllPokémons extends Component {
 
     componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS) {
         if (this.props.match.params !== prevProps.match.params) {
-            if (this.props.match.params.pokemonName && !prevProps.match.params.pokemonName) {
-                return; // Don't initiate data if pokémon is detailed
-            }
-            if (this.props.match.path === "/random") {
-                return; // Don't initiate data when random pokémon is detailed
-            }
-            if (this.props.match.path === "/page/:page") {
-                return; // Don't initiate data when random pokémon is detailed
+            if ((this.props.match.params.pokemonName && !prevProps.match.params.pokemonName) || this.props.match.path === "/random" || this.props.match.path === "/page/:page") {
+                console.log('Return');
+                return; // Don't initiate data if pokémon is detailed OR when random pokemon is detailed OR when pagination is used
             }
             this.initData()
         }
     }
 
     initData = () => {
-         if (this.props.match.params.page) { // Page to load is set, load page pokémons from that page
+         if (this.props.match.params.page) { // Page to load is set, load paged pokémons from that page
             this.setState({ page: parseInt(this.props.match.params.page) });
             let offset = this.props.match.params.page * PokémonService.basePageLimit;
             this.loadPagedPokémon(offset);
-        } else if (this.props.match.path === "/my_pokémons") {
-            this.loadCaughtPokémons();
         } else { // Default case, load normal pokémon list
-            this.setState({title: "Pick a creature!"});
             this.loadPokémons();
         }
     }
@@ -89,14 +80,6 @@ class AllPokémons extends Component {
             this.setState({jsonData: json});
             Loader.hideLoader();
         })
-    }
-
-    loadCaughtPokémons() {
-        let results = CatchService.getAll();
-        console.log(results);
-        let jsonData = { results }
-        console.log(jsonData);
-        this.setState({jsonData: jsonData});
     }
 
     loadNextPage = () => {
