@@ -20,6 +20,8 @@ class PokémonDetails extends Component {
         }
     }
 
+    options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+
     render() {
         return (
             <React.Fragment>
@@ -33,6 +35,7 @@ class PokémonDetails extends Component {
                 <div className="details-container">
                     <div className="details-info">
                         <h1 className="details-info-name">{capitalize(this.state.pokémon.name)}</h1>
+{this.state.pokémon.date && <h3 className="details-info-date">{"Caught: " + new Date(this.state.pokémon.date).toLocaleDateString("en-US", this.options)}</h3>}
                         <div className="details-info-profile">
                             <h2>Profile</h2>
                             <dl>
@@ -99,10 +102,12 @@ class PokémonDetails extends Component {
             this.loadRandomPokémon();
         }
         this.enableBodyScroll(false);
+        document.body.addEventListener('keydown', this.handleKeyDown);
     }
 
     componentWillUnmount() {
         this.enableBodyScroll(true);
+        document.body.removeEventListener('keydown', this.handleKeyDown);
     }
 
     loadPokémon = () => {
@@ -127,16 +132,25 @@ class PokémonDetails extends Component {
 
     catchPokémon = () => {
         if (this.state.caught) {
-            CatchService.remove(this.state.pokémon.name);
-            this.setState({caught: false});
+            this.setState({caught: false, pokémon: {...this.state.pokémon, date: null}}, () => {
+                CatchService.remove(this.state.pokémon.name); }); // Remove date from state pokémon and remove from local storage
         } else {
-            CatchService.add(this.state.pokémon);
-            this.setState({caught: true});
+            this.setState({caught: true, pokémon: {...this.state.pokémon, date: new Date()}}, () => {
+                CatchService.add(this.state.pokémon); }); // Add date from state pokémon and add from local storage
         }
     }
 
     updateCaughtState = () => {
         this.setState({caught: !!CatchService.get(this.state.pokémon.name)});
+        if (this.state.caught) { this.updateCaughtDate(); }
+    }
+
+    updateCaughtDate = () => {
+        this.setState({pokémon: {...this.state.pokémon, date: CatchService.get(this.state.pokémon.name).date || ''}});
+    }
+
+    handleKeyDown = (e) => {
+        if (e.key === "Escape") { this.goBack(); }
     }
 
     toggleImage = () => {

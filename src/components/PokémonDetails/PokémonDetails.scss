@@ -42,8 +42,11 @@
         flex-grow: 1;
 
         &-name {
-            word-break: keep-all;
-            white-space: nowrap;
+            word-break: break-word;
+        }
+
+        &-date {
+            margin-top: -.5em;
         }
 
         &-types {
@@ -196,11 +199,6 @@
 
         &-info {
             text-align: center;
-
-            &-name {
-                word-break: break-word;
-                white-space: normal;
-            }
 
             &-profile {
 
