@@ -1,4 +1,5 @@
 $menu-size: 13em;
+$header-height: 3em;
 
 body {
     padding: 0;
@@ -19,8 +20,8 @@ a {
     font-family: Avenir, Helvetica, Arial, sans-serif;
     position: relative;
     min-height: 100vh;
-    margin-top: -3em;
-    padding-top: 3em;
+    margin-top: -$header-height;
+    padding-top: $header-height;
 
     &.menu-active {
         & .header {
@@ -45,7 +46,7 @@ a {
     }
 
     & .content {
-        margin-top: 3em;
+        margin-top: $header-height;
         transition: margin-left .5s;
         padding: 1em 1em 12em;
     }
@@ -168,16 +169,13 @@ a {
 
 @media only screen and (max-width: 400px) {
     #app {
-
         & .menu {
-
             &-close {
                 display: inline-block;
             }
         }
 
         &.menu-active {
-
             & .content {
                 margin-left: 0;
             }
