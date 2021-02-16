@@ -55,12 +55,12 @@ const PokémonService = {
     },
 
     getTotalNumberOfPokémon() {
-        if (!this.totalNumberOfPokémon) {
+        if (!this.totalNumberOfPokémon) { // If total number of pokémon is not yet known
             return this.doLoad('/pokemon-species/?limit=0').then(jsonData => {
                 this.totalNumberOfPokémon = jsonData.count;
                 return jsonData;
             }).catch(e => { console.log('Error', e) });
-        } else {
+        } else { // If total number of pokémon is known return total number of pokémons
             return new Promise(resolve => {resolve(this.totalNumberOfPokémon)})
         }
     },
