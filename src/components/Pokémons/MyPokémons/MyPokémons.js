@@ -9,7 +9,7 @@ class MyPokémons extends Component {
         super(props);
         this.state = {
             jsonData: {
-                results: {}
+                results: { }
             }
         }
     }
