@@ -42,6 +42,11 @@ const PokémonService = {
 
     getTypePokémons(type) {
         return this.doLoad(`/type/${type}`).then(jsonData => {
+            Object.defineProperty(jsonData, 'results', Object.getOwnPropertyDescriptor(jsonData, 'pokemon'));
+            delete jsonData['pokemon']; // Change name of pokémons prop to results
+            jsonData.results.forEach(function (result, index) {
+                jsonData.results[index] = result.pokemon; // Lift all pokémons results one level up in hierarchy
+            });
             return jsonData;
         }).catch(e => { console.log('Error', e) });
     },

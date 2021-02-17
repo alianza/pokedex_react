@@ -56,15 +56,8 @@ class TypePokémons extends Component {
     loadTypePokémons = (type) => {
         Loader.showLoader();
         PokémonService.getTypePokémons(type).then(json => {
-            if (json) {
-                Object.defineProperty(json, 'results', Object.getOwnPropertyDescriptor(json, 'pokemon'));
-                delete json['pokemon']; // Change name of pokemons prop to results
-                json.results.forEach(function (result, index) {
-                    json.results[index] = result.pokemon; // Lift all pokemons results one level up in hierarchy
-                })
-                this.setState({jsonData: json});
-                Loader.hideLoader();
-            }
+            this.setState({jsonData: json});
+            Loader.hideLoader();
         });
     }
 
