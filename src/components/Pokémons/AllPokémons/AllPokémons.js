@@ -59,7 +59,7 @@ class AllPokémons extends Component {
     initData = () => {
          if (this.props.match.params.page) { // Page to load is set, load paged pokémons from that page
             this.setState({ page: parseInt(this.props.match.params.page) });
-            let offset = this.props.match.params.page * PokémonService.basePageLimit;
+            let offset = (this.props.match.params.page - 1) * PokémonService.basePageLimit;
             this.loadPagedPokémon(offset);
         } else { // Default case, load normal pokémon list
             this.loadPokémons();
