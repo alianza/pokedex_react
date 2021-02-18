@@ -42,7 +42,8 @@ class TypePokémons extends Component {
 
     componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS) {
         if (this.props.match.params !== prevProps.match.params) {
-            if (!!this.props.match.params.pokemonName || prevProps.match.params.pokemonName) { return; } // Don't update data when coming from or going to detail page
+            if ((!!this.props.match.params.pokemonName || prevProps.match.params.pokemonName) &&
+                (this.props.match.params.type === prevProps.match.params.type)) { return; } // Don't update data when coming from or going to detail page and type param hasn't changed
             this.initData();
         }
     }
