@@ -39,6 +39,7 @@ class MyPokémons extends Component {
 
     componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS) {
         if (this.props.match.params !== prevProps.match.params) {
+            if (!!this.props.match.params.pokemonName || prevProps.match.params.pokemonName) { return; } // Don't update data when coming from or going to detail page
             this.loadCaughtPokémons();
         }
     }
@@ -49,13 +50,7 @@ class MyPokémons extends Component {
     }
 
     sort = () => {
-        let list = document.getElementsByClassName('pokemons-list')[0]
-        let children = list.children;
-        children = [...children].reverse();
-        list.innerHTML = '';
-        children.forEach(function (result) {
-            list.innerHTML += result.outerHTML;
-        })
+        this.setState({state: this.state.jsonData.results.reverse()});
     }
 }
 
