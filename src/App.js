@@ -4,22 +4,18 @@ import PokéHeader from "./components/PokéHeader/PokéHeader";
 import PokéMenu from "./components/PokéMenu/PokéMenu";
 import PokéFooter from "./components/PokéFooter/PokéFooter";
 import PokémonDetails from "./components/PokémonDetails/PokémonDetails";
-import {BrowserRouter as Router, Route} from "react-router-dom";
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import AllPokémons from "./components/Pokémons/AllPokémons/AllPokémons";
 import Types from "./components/Types/Types";
-import {Pokémon} from "./entity/Pokémon";
 import { AnimatedRoute } from 'react-router-transition';
 import TypePokémons from "./components/Pokémons/TypePokémons/TypePokémons";
 import MyPokémons from "./components/Pokémons/MyPokémons/MyPokémons";
-import Fader from 'react-fader'
-import Switch from 'react-router-transition-switch'
 
 class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             title: 'PokéDex',
-            detailPokémon: Pokémon,
         }
     }
 
@@ -31,7 +27,7 @@ class App extends React.Component {
                     <PokéMenu onMenuClick={this.toggleMenu}/>
 
                     <div className={'content'}>
-                        <Switch component={Fader}>
+                        <Switch>
                             <Route exact path={['/', '/pokémon/:pokemonName', '/random', '/page/:page']} render={({match}) =>
                                 <AllPokémons match={match}/>}/>
 
