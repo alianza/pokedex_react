@@ -34,7 +34,7 @@ class PokémonItem extends Component {
     }
 
     componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS) {
-        if (prevProps.pokémon.name !== this.props.pokémonRef.name) {
+        if (prevState.pokémon.name !== this.props.pokémonRef.name) {
             if (this.props.pokémonRef.url) {
                 this.loadPokémon();
             }
