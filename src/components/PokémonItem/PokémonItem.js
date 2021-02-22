@@ -34,7 +34,7 @@ class PokémonItem extends Component {
     }
 
     componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS) {
-        if (prevState.pokémon.name !== this.props.pokémonRef.name) {
+        if (prevProps.pokémon.name !== this.props.pokémonRef.name) {
             if (this.props.pokémonRef.url) {
                 this.loadPokémon();
             }
@@ -42,7 +42,11 @@ class PokémonItem extends Component {
     }
 
     loadPokémon = () => {
-        PokémonService.doLoad(this.props.pokémonRef.url).then(json => {this.setState({pokémon: json});});
+        PokémonService.getPokémon(this.props.pokémonRef.name).then(json => {
+            if (json) {
+                this.setState({pokémon: json});
+            }
+        });
     }
 }
 
