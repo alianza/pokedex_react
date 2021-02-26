@@ -4,7 +4,7 @@ import PokéHeader from "./components/PokéHeader/PokéHeader";
 import PokéMenu from "./components/PokéMenu/PokéMenu";
 import PokéFooter from "./components/PokéFooter/PokéFooter";
 import PokémonDetails from "./components/PokémonDetails/PokémonDetails";
-import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import {HashRouter as Router, Route, Switch} from "react-router-dom";
 import AllPokémons from "./components/Pokémons/AllPokémons/AllPokémons";
 import Types from "./components/Types/Types";
 import { AnimatedRoute } from 'react-router-transition';
