@@ -27,7 +27,7 @@ class PokémonDetails extends Component {
             <React.Fragment>
                 <div onClick={this.goBack} className="backdrop"/>
 
-    {this.state.pokémon.name &&
+{this.state.pokémon.name &&
         <React.Fragment>
             <div className="details">
                 <div onClick={this.goBack} className="details-close">✖</div>
