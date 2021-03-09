@@ -28,7 +28,7 @@ class TypePokémons extends Component {
                     {this.state.jsonData.results[0] &&
                     this.state.jsonData.results.map((e, i) => {
                         return <li className="pokemons-item" key={i}>
-                            <Link to={`/type/${this.props.match.params.type}/pokémon/${e.name}`}><PokémonItem pokémonRef={e}/></Link>
+                            <Link to={`/types/${this.props.match.params.type}/pokémon/${e.name}`}><PokémonItem pokémonRef={e}/></Link>
                         </li>})}
                 </ul>
                 {!this.state.jsonData.results.length && <h2>No results :(</h2>}

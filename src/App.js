@@ -31,11 +31,11 @@ class App extends React.Component {
                             <Route exact path={['/', '/pokémon/:pokemonName', '/random', '/page/:page']} render={({match}) =>
                                 <AllPokémons match={match}/>}/>
 
+                            <Route exact path={['/types/:type', '/types/:type/pokémon/:pokemonName']} render={({match}) =>
+                                <TypePokémons match={match}/>}/>
+
                             <Route path={'/types'} render={({match}) =>
                                 <Types match={match}/>}/>
-
-                            <Route exact path={['/type/:type', '/type/:type/pokémon/:pokemonName']} render={({match}) =>
-                                <TypePokémons match={match}/>}/>
 
                             <Route exact path={['/my_pokémons', '/my_pokémons/:pokemonName']} render={({match}) =>
                                 <MyPokémons match={match}/>}/>
@@ -50,7 +50,7 @@ class App extends React.Component {
                         <div/>
                     </div>
 
-                    <AnimatedRoute exact path={['/random','/pokémon/:pokemonName', '/type/:type/pokémon/:pokemonName',
+                    <AnimatedRoute exact path={['/random','/pokémon/:pokemonName', '/types/:type/pokémon/:pokemonName',
                                                 '/my_pokémons/:pokemonName']}
                                    atEnter={{ opacity: 0 }} atLeave={{ opacity: 0 }} atActive={{ opacity: 1 }}
                                    mapStyles={(styles) => ({ opacity: styles.opacity, })}

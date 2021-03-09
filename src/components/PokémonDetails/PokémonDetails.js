@@ -53,7 +53,7 @@ class PokémonDetails extends Component {
                             <h2>Types</h2>
                             {this.state.pokémon.types.map((type) => {
                                 return <Link onClick={() => {this.enableBodyScroll(true); scrollToTop()}}
-                                        key={type.type.name} to={`/type/${type.type.name}`}
+                                        key={type.type.name} to={`/types/${type.type.name}`}
                                         style={{backgroundColor: typeToColor(type.type.name)}}
                                         className="details-info-types-type">{capitalize(type.type.name)}</Link>})}
                         </div>

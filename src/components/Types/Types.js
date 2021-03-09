@@ -3,6 +3,8 @@ import './Types.scss'
 import PokémonService from "../../helpers/services/PokémonService";
 import TypeItem from "./TypeItem/TypeItem";
 import Loader from "../../helpers/Loader";
+import {Link} from "react-router-dom";
+import scrollToTop from "../../helpers/ScrollToTop";
 
 class Types extends Component {
     render() {
@@ -16,7 +18,9 @@ class Types extends Component {
                     {this.state &&
                     this.state.jsonData.results.map((type) => {
                         return <li key={type.name} className="types-item">
-                            <TypeItem type={type}>{type.name}</TypeItem>
+                            <Link to={`/types/${type.name}`} onClick={scrollToTop}>
+                                <TypeItem type={type}>{type.name}</TypeItem>
+                            </Link>
                         </li>
                     })}
                 </ul>
