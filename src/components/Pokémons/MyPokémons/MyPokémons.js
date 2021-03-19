@@ -40,7 +40,6 @@ class MyPokémons extends Component {
     componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS) {
         if (this.props.match.params !== prevProps.match.params) {
             this.loadCaughtPokémons();
-            console.log('update')
         }
     }
 
