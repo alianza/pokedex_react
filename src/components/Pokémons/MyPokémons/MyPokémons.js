@@ -39,18 +39,18 @@ class MyPokémons extends Component {
 
     componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS) {
         if (this.props.match.params !== prevProps.match.params) {
-            if (!!this.props.match.params.pokemonName || prevProps.match.params.pokemonName) { return; } // Don't update data when coming from or going to detail page
             this.loadCaughtPokémons();
+            console.log('update')
         }
     }
 
     loadCaughtPokémons() {
         let jsonData = { results: (CatchService.getAll() || '') }
-        this.setState({jsonData: jsonData});
+        this.setState({ jsonData: jsonData });
     }
 
     sort = () => {
-        this.setState({state: this.state.jsonData.results.reverse()});
+        this.setState({ state: this.state.jsonData.results.reverse() });
     }
 }
 
