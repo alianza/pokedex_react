@@ -45,7 +45,9 @@ class MyPokémons extends Component {
 
     loadCaughtPokémons() {
         let jsonData = { results: (CatchService.getAll() || '') }
-        this.setState({ jsonData: jsonData });
+        this.setState({ jsonData: jsonData }, () => {
+            console.log(this.state.jsonData);
+        });
     }
 
     sort = () => {
