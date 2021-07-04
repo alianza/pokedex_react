@@ -1,5 +1,5 @@
 {
-  "short_name": "PokéDex React App",
+  "short_name": "PokéDex React",
   "name": "React.js PokéDex App",
   "icons": [
     {
@@ -20,6 +20,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
+  "theme_color": "#8a2be2",
   "background_color": "#ffffff"
 }
