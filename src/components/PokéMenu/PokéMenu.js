@@ -8,7 +8,7 @@ function PokéMenu(props) {
 
     const about = () => {
         alert('This is a Web PokéDex Application!\n' +
-            'Discover countless Pokemon and their info!\n' +
+            'Discover countless Pokémon and their info!\n' +
             'Made by Jan-Willem van Bremen - 2020');
     }
 

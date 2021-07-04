@@ -1,4 +1,4 @@
-.pokemons {
+.pokémons {
     &-header {
 
         & h1 {
@@ -40,7 +40,7 @@
 }
 
 @media only screen and (max-width: 500px) {
-    .pokemons {
+    .pokémons {
         text-align: center;
 
         &-header {

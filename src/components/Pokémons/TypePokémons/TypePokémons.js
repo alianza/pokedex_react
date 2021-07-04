@@ -19,15 +19,15 @@ class TypePokémons extends Component {
 
     render() {
         return (
-            <div className="pokemons">
-                <div className="pokemons-header">
+            <div className="pokémons">
+                <div className="pokémons-header">
                     <h1>{this.state.title}</h1>
                     <div onClick={this.sort} className="button button-sort">Sort ⇕</div>
                 </div>
-                <ul className="pokemons-list">
+                <ul className="pokémons-list">
                     {this.state.jsonData.results[0] &&
                     this.state.jsonData.results.map((e, i) => {
-                        return <li className="pokemons-item" key={i}>
+                        return <li className="pokémons-item" key={i}>
                             <Link to={`/types/${this.props.match.params.type}/pokémon/${e.name}`}><PokémonItem pokémonRef={e}/></Link>
                         </li>})}
                 </ul>

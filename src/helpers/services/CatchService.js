@@ -1,3 +1,5 @@
+import { Pokémon } from "../../entity/Pokémon";
+
 const CatchService = {
     add(pokémon)  { // Add to the array and save in local storage
         let pokémons = this.getAll() || []; // Retrieve all
@@ -13,14 +15,14 @@ const CatchService = {
         localStorage.setItem('pokémons', JSON.stringify(pokémons)); // Save in local storage
     },
 
-    get(pokémonName) { // Get array and find specific pokémon based on name
+    get(pokémonName): Pokémon { // Get array and find specific pokémon based on name
         let pokémons = this.getAll() || []; // Retrieve all
         pokémons.forEach(function (pokémon) { // Iterate though all
             if (pokémon.name === pokémonName) { return pokémon; } // Compare name, if match return it
         });
     },
 
-    getAll() { // Get the entire array of pokémon and parse it
+    getAll(): Pokémon[] { // Get the entire array of pokémon and parse it
         return JSON.parse(localStorage.getItem('pokémons')); // Retrieve all
     }
 }

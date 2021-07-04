@@ -19,15 +19,15 @@ class AllPokémons extends Component {
 
     render() {
         return (
-            <div className="pokemons">
-                <div className="pokemons-header">
+            <div className="pokémons">
+                <div className="pokémons-header">
                     <h1>Pick a creature!</h1>
                     <div onClick={this.sort} className="button button-sort">Sort ⇕</div>
                 </div>
-                <ul className="pokemons-list">
+                <ul className="pokémons-list">
                     {this.state.jsonData.results[0] &&
                     this.state.jsonData.results.map((e, i) => {
-                        return <li className="pokemons-item" key={i}>
+                        return <li className="pokémons-item" key={i}>
                             <Link to={`/pokémon/${e.name}`}><PokémonItem pokémonRef={e}/></Link>
                         </li>})}
                 </ul>
@@ -48,7 +48,7 @@ class AllPokémons extends Component {
 
     componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS) {
         if (this.props.match.params !== prevProps.match.params) {
-            if ((this.props.match.params.pokemonName && !prevProps.match.params.pokemonName) || this.props.match.path === "/random" || this.props.match.path === "/page/:page") {
+            if ((this.props.match.params.pokemonName && !prevProps.match.params.pokemonName) || this.props.match.path === "/random") {
                 return; // Don't initiate data if pokémon is detailed OR when random pokemon is detailed OR when pagination is used
             }
             if (!!this.props.match.params.pokemonName || prevProps.match.params.pokemonName) { return; } // Don't update data when coming from or going to detail page
@@ -84,7 +84,6 @@ class AllPokémons extends Component {
 
     loadNextPage = () => {
         Loader.showLoader();
-        this.setState({})
         this.setState({ page: this.state.page + 1 })
         PokémonService.doLoad(this.state.jsonData.next).then(json => {
             this.setState({jsonData: json});
@@ -95,7 +94,6 @@ class AllPokémons extends Component {
 
     loadPreviousPage = () => {
         Loader.showLoader();
-        this.setState({})
         this.setState({ page: this.state.page - 1 })
         PokémonService.doLoad(this.state.jsonData.previous).then(json => {
             this.setState({jsonData: json});

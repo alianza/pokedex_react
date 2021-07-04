@@ -10,14 +10,14 @@ class MyPokémonItem extends Component {
 
     render() {
         return (
-            <div className="pokemon my_pokemon" style={this.props.pokémon.sprites.front_default ?
+            <div className="pokémon my_pokémon" style={this.props.pokémon.sprites.front_default ?
                      {backgroundImage: 'url(' + this.props.pokémon.sprites.front_default + ')'} :
                      {backgroundImage: `url(${pokéball_closed})`, backgroundSize: '50%', backgroundPosition: 'center'}}>
                 <div>
-                    <h3 className="pokemon-name">{capitalize(this.props.pokémon.name)}</h3>
-                    <h5 className="pokemon-date">{new Date(this.props.pokémon.date).toLocaleDateString("en-US", this.options)}</h5>
+                    <h3 className="pokémon-name">{capitalize(this.props.pokémon.name)}</h3>
+                    <h5 className="pokémon-date">{new Date(this.props.pokémon.date).toLocaleDateString("en-US", this.options)}</h5>
                 </div>
-                {this.props.pokémon.types[0].type && <p className="pokemon-type"
+                {this.props.pokémon.types[0].type && <p className="pokémon-type"
                 style={{backgroundColor: typeToColor(this.props.pokémon.types[0].type.name)}}>
                 {capitalize(this.props.pokémon.types[0].type.name)}</p>}
             </div>

@@ -38,4 +38,5 @@ export class Pokémon {
     sprites: Sprites;
     stats: Stats[];
     types: Types[];
+    date: string | undefined;
 }

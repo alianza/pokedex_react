@@ -16,15 +16,15 @@ class MyPokémons extends Component {
 
     render() {
         return (
-            <div className="pokemons">
-                <div className="pokemons-header">
+            <div className="pokémons">
+                <div className="pokémons-header">
                     <h1>My Pokémons!</h1>
                     <div onClick={this.sort} className="button button-sort">Sort ⇕</div>
                 </div>
-                <ul className="pokemons-list">
+                <ul className="pokémons-list">
                     {this.state.jsonData.results[0] &&
                     this.state.jsonData.results.map((pokémon, i) => {
-                        return <li className="pokemons-item" key={i}>
+                        return <li className="pokémons-item" key={i}>
                             <Link to={`/my_pokémons/${pokémon.name}`}><MyPokémonItem pokémon={pokémon}/></Link>
                         </li>})}
                 </ul>
@@ -45,9 +45,7 @@ class MyPokémons extends Component {
 
     loadCaughtPokémons() {
         let jsonData = { results: (CatchService.getAll() || '') }
-        this.setState({ jsonData: jsonData }, () => {
-            console.log(this.state.jsonData);
-        });
+        this.setState({ jsonData: jsonData } )
     }
 
     sort = () => {

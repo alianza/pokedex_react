@@ -136,7 +136,7 @@ class PokémonDetails extends Component {
                 CatchService.remove(this.state.pokémon.name); }); // Remove date from state pokémon and remove from local storage
         } else {
             this.setState({caught: true, pokémon: {...this.state.pokémon, date: new Date()}}, () => {
-                CatchService.add(this.state.pokémon); }); // Add date from state pokémon and add from local storage
+                CatchService.add(this.state.pokémon); }); // Add date from state pokémon and add to local storage
         }
     }
 
