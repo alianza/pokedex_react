@@ -15,14 +15,16 @@ const CatchService = {
         localStorage.setItem('pokémons', JSON.stringify(pokémons)); // Save in local storage
     },
 
-    get(pokémonName): Pokémon { // Get array and find specific pokémon based on name
+    get(pokémonName): Pokémon | undefined { // Get array and find specific pokémon based on name
+        let pokémonToReturn;
         let pokémons = this.getAll() || []; // Retrieve all
         pokémons.forEach(function (pokémon) { // Iterate though all
-            if (pokémon.name === pokémonName) { return pokémon; } // Compare name, if match return it
+            if (pokémon.name === pokémonName) { pokémonToReturn = pokémon; } // Compare name, if match set as return value
         });
+        return pokémonToReturn;
     },
 
-    getAll(): Pokémon[] { // Get the entire array of pokémon and parse it
+    getAll(): Pokémon[] | undefined { // Get the entire array of pokémon and parse it
         return JSON.parse(localStorage.getItem('pokémons')); // Retrieve all
     }
 }
