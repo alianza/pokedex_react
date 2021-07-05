@@ -22,7 +22,7 @@ class AllPokémons extends Component {
             <div className="pokémons">
                 <div className="pokémons-header">
                     <h1>Pick a creature!</h1>
-                    <div onClick={this.sort} className="button button-sort">Sort ⇕</div>
+                    {this.state.jsonData.results.length > 1 && <div onClick={this.sort} className="button button-sort">Sort ⇕</div>}
                 </div>
                 <ul className="pokémons-list">
                     {this.state.jsonData.results[0] &&
